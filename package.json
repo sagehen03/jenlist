@@ -1,0 +1,27 @@
+{
+  "name": "jen-list",
+  "version": "1.0.0",
+  "description": "New listy app",
+  "main": "index.js",
+  "dependencies": {
+    "backbone": "^1.2.2",
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.6",
+    "jshint": "^2.8.0",
+    "lodash.assign": "^3.2.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "vinyl-transform": "^1.0.0",
+    "watchify": "^3.3.1"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Drew",
+  "license": "ISC"
+}
