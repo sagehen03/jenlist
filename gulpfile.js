@@ -16,7 +16,9 @@ var customOpts = {
     debug: true
 };
 var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
+var bify = browserify();
+bify.require('./js/models/list-item.js', {expose: 'li'});
+var b = watchify(bify);
 
 gulp.task('js', bundle); // so you can run `gulp js` to build the file
 b.on('update', bundle); // on any dep update, runs the bundler
