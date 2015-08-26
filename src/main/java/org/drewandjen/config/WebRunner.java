@@ -4,6 +4,7 @@ import org.drewandjen.dao.ListDao;
 import org.drewandjen.dao.MemoryListDao;
 import org.drewandjen.web.ListController;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Created by dhite on 8/24/15.
  */
 @Configuration
-@EnableWebMvc
+@EnableAutoConfiguration
 public class WebRunner {
 
     @Bean

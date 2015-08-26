@@ -12,7 +12,7 @@ import java.util.List;
 public class MemoryListDao implements ListDao {
     @Override
     public List<ListItem> getListItems() {
-        return Arrays.asList(new ListItem("Hello", "Comment", new Date()));
+        return Arrays.asList(new ListItem(1, "Hello", "Comment", new Date(), false));
     }
 
     @Override

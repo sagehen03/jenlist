@@ -12,15 +12,13 @@ var jsFiles =  glob.sync('./js/**/*.js');
 
 // add custom browserify options here
 var customOpts = {
-    require: jsFiles,
+    entries: jsFiles,
     debug: true
 };
 var opts = assign({}, watchify.args, customOpts);
-var bify = browserify();
-bify.require('./js/models/list-item.js', {expose: 'li'});
-var b = watchify(bify);
+var b = watchify(browserify(opts));
 
-gulp.task('js', bundle); // so you can run `gulp js` to build the file
+gulp.task('bundle', bundle); // so you can run `gulp bundle` to build the file
 b.on('update', bundle); // on any dep update, runs the bundler
 b.on('log', gutil.log); // output build logs to terminal
 
@@ -31,5 +29,5 @@ function bundle() {
         .pipe(source('bundle.js'))
         // optional, remove if you dont want sourcemaps
         // Add transformation tasks to the pipeline here.
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./src/main/webapp/js'));
 }

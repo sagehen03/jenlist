@@ -5,6 +5,7 @@
         defaults: {
             title: "",
             comments: "",
+            dateAdded: "",
             completed: false
         }
     });
