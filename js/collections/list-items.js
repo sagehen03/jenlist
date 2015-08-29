@@ -6,13 +6,6 @@ var List = Backbone.Collection.extend({
     model: ListItem,
     url: 'http://localhost:8092/jenlist/items',
 
-    fetch: function(options) {
-        //Call Backbone's fetch
-         var call = Backbone.Collection.prototype.fetch.call(this, options);
-        console.log(call);
-        return call;
-    },
-
     initialize: function(){
         this.on('request', this.beginSync);
         this.on('sync', this.finishSync);

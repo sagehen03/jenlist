@@ -9,6 +9,5 @@
             completed: false
         }
     });
-    console.log("Hello hello");
     module.exports = ListItem;
 })();
