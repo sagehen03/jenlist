@@ -2,6 +2,14 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var MasterList = require('views/master-list');
-var l = new MasterList();
-l.render();
+new MasterList();
+//var Items = require('collections/master-list');
+//var items = new Items();
+//items.fetch({
+//    success: function () {
+//        var masterList = new MasterList({collection: items});
+//        masterList.render();
+//    }
+//});
+
 

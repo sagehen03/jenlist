@@ -1,14 +1,17 @@
 (function(){
     'use strict'
     var MasterListItemView = require('views/master-list-item');
-    var mlColl = require('collections/master-list');
+    var MasterList = require('collections/master-list');
     var Backbone = require('backbone');
     var MasterListView = Backbone.View.extend({
         el: '#master-list',
-        collection: mlColl,
+        collection: new MasterList(),
 
         initialize: function(){
-          console.log("Master List View Created");
+          var that = this;
+          this.collection.fetch({success: function(){
+              that.render();
+          }});
         },
 
         render: function(){

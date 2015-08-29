@@ -6,6 +6,7 @@
 
         model: MasterListItem,
         url: 'http://localhost:8092/jenlist/master-list'
+
     });
     module.exports = MasterList;
 })();
