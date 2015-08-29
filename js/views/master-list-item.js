@@ -2,7 +2,6 @@
     'use strict'
     var Backbone = require('backbone');
     var _ = require('underscore');
-    var $ = require('jquery')
     var MasterListItemView = Backbone.View.extend({
         tagName:  'li',
         className: 'masterListItem',

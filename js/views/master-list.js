@@ -7,11 +7,13 @@
         el: '#master-list',
         collection: new MasterList(),
 
+
         initialize: function(){
           var that = this;
           this.collection.fetch({success: function(){
               that.render();
           }});
+            this.listenTo(this.collection, 'add', this.addItem);
         },
 
         render: function(){
@@ -20,7 +22,12 @@
             });
             this.$el.html(mlView);
             return this;
+        },
+
+        addItem: function(item){
+            this.$el.append(new MasterListItemView({model: item}).render().el);
         }
+
     });
     module.exports = MasterListView;
 })();
