@@ -3,8 +3,7 @@
     var Backbone = require("backbone");
     var MasterListItem = Backbone.Model.extend({
         defaults: {
-            name: "",
-            id: 0,
+            name: "Hello Dolly",
             dateAdded: ""
         }
     });

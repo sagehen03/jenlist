@@ -3,6 +3,7 @@ package org.drewandjen.dao;
 import org.drewandjen.model.MasterListItem;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,5 +22,11 @@ public class MasterListDaoH2 implements MasterListDao {
         return template.query("SELECT id, name FROM master_list ORDER BY created_at", (rs, rowNum) -> {
             return new MasterListItem(rs.getInt("id"), rs.getString("name"));
         });
+    }
+
+    @Override
+    public void save(MasterListItem newItem) {
+        template.update("insert into master_list (name, created_at) values (?, ?)",
+                newItem.getName(), new Date());
     }
 }

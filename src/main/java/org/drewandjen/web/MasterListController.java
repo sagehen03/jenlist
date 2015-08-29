@@ -4,16 +4,18 @@ import org.drewandjen.dao.MasterListDao;
 import org.drewandjen.model.MasterListItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * Created by dhite on 8/24/15.
  */
-@RestController
+@Controller
 public class MasterListController {
 
     private MasterListDao dao;
@@ -24,9 +26,17 @@ public class MasterListController {
         this.dao = dao;
     }
 
-    @RequestMapping(value= "/master-list", method= RequestMethod.GET)
+    @RequestMapping(value= "/master-list", method= RequestMethod.GET, produces = "application/json")
+    @ResponseBody
     public List<MasterListItem> getItems(){
-        LOG.info("Getting the items!");
+        LOG.info("Retrieving items");
         return dao.fetchAll();
+    }
+
+    @RequestMapping(value = "/master-list", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<String> saveItem(@RequestBody MasterListItem newItem){
+        dao.save(newItem);
+        LOG.info("Saving item {}", newItem);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -14,6 +14,13 @@ public class MasterListItem {
         this.name = name;
     }
 
+    public MasterListItem() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "MasterListItem{" +

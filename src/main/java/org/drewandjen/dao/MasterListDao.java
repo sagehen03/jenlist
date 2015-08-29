@@ -10,4 +10,6 @@ import java.util.List;
 public interface MasterListDao {
 
     List<MasterListItem> fetchAll();
+
+    void save(MasterListItem newItem);
 }
