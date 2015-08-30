@@ -6,8 +6,10 @@ import org.drewandjen.dao.MasterListDaoH2;
 import org.drewandjen.dao.MemoryListDao;
 import org.drewandjen.web.ListController;
 import org.drewandjen.web.MasterListController;
+import org.drewandjen.web.SimpleCorsFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +19,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 
 /**
  * Created by dhite on 8/24/15.
@@ -32,6 +34,16 @@ public class WebRunner {
     public TomcatEmbeddedServletContainerFactory tomcatFactory(){
         TomcatEmbeddedServletContainerFactory server = new TomcatEmbeddedServletContainerFactory("/jenlist", 8092);
         return server;
+    }
+
+    @Bean
+    public FilterRegistrationBean corsFilter(){
+        SimpleCorsFilter filter = new SimpleCorsFilter();
+        FilterRegistrationBean result = new FilterRegistrationBean();
+        result.setFilter(filter);
+        result.setName("cors");
+        result.setUrlPatterns(Collections.singletonList("/*"));
+        return result;
     }
 
     @Bean
