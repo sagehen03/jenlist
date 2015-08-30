@@ -6,6 +6,10 @@ var MasterListView = Backbone.View.extend({
     tagName: 'ul',
     className: 'list-unstyled',
 
+    events: {
+        'change input': 'selected'
+    },
+
     initialize: function(){
         this.listenToOnce(this.collection, 'sync', function() {
             // Initial render.
@@ -28,7 +32,12 @@ var MasterListView = Backbone.View.extend({
     },
 
     addItem: function(item){
-        this.$el.append(new MasterListItemView({model: item}).render().el);
+        var view = new MasterListItemView({
+            model: item
+        });
+        this.$el.append(view.el);
+        view.render();
+        return this;
     }
 
 });

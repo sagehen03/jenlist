@@ -4,9 +4,15 @@ var Backbone = require("backbone");
 var _ = require('underscore');
 var ListItem = require('../models/list-item');
 
+
 var List = Backbone.Collection.extend({
     model: ListItem,
-    url: env.API_BASE + '/items',
+
+    url: env.API_BASE + '/shopping-list',
+
+    initialize: function(models, options) {
+        this.id = options.id;
+    },
 
     batch: function(options) {
         // Prepare the models to go to the server.
@@ -18,12 +24,10 @@ var List = Backbone.Collection.extend({
         })
 
         var opts = _.extend({
-            data: items,
-            url: this.url(),
-            contentType: 'application/json'
+            url: this.url()
         }, options)
 
-        this.sync('create', this, opts);
+        this.sync('create', items, options);
     }
 });
 

@@ -5,3 +5,19 @@
 #add-item {
     margin: 20px 0;
 }
+
+#master-list .list-item .remove {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+#lists .list-group-item {
+    border: none;
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    padding-left: 0;
+}
+
+#lists .list-group-item:first-child {
+    border: none;
+}
