@@ -20,4 +20,6 @@ public interface ShoppingListDao {
     List<ShoppingList> fetchAllShoppingLists();
 
     void saveShopingList(String shoppingListName);
+
+    void deleteShoppingListItem(List<ShoppingListItem> shoppingListItems);
 }

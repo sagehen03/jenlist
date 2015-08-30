@@ -57,4 +57,12 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     public void saveShopingList(String shoppingListName) {
         template.update("insert into shopping_list(name, created_at) values(?, CURRENT_TIMESTAMP())", shoppingListName);
     }
+
+    @Override
+    public void deleteShoppingListItem(List<ShoppingListItem> shoppingListItems) {
+        for (ShoppingListItem shoppingListItem : shoppingListItems) {
+            template.update("delete from shopping_list_item where shopping_list_id = ? and id = ?",
+                    shoppingListItem.getShoppingListId(), shoppingListItem.getId());
+        }
+    }
 }

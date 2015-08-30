@@ -53,4 +53,12 @@ public class ShoppingListController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value="/shopping-list", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteItem(@RequestBody List<ShoppingListItem> shoppingListItem){
+        dao.deleteShoppingListItem(shoppingListItem);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
