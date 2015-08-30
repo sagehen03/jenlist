@@ -8,17 +8,22 @@ var List = Backbone.Collection.extend({
     model: ListItem,
     url: env.API_BASE + '/items',
 
-    initialize: function(){
-        this.on('request', this.beginSync);
-        this.on('sync', this.finishSync);
-    },
+    batch: function(options) {
+        // Prepare the models to go to the server.
+        var shoppingListId = this.id;
+        var items = this.map(function(model) {
+            var item = model.pick(_.keys(model.defaults));
+            item.shoppingListId = shoppingListId;
+            return item;
+        })
 
-    finishSync: function(){
-        console.log("After sync");
-    },
+        var opts = _.extend({
+            data: items,
+            url: this.url(),
+            contentType: 'application/json'
+        }, options)
 
-    beginSync: function(){
-        console.log("Before sync");
+        this.sync('create', this, opts);
     }
 });
 
