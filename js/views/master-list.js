@@ -1,7 +1,7 @@
 (function(){
     'use strict'
-    var MasterListItemView = require('views/master-list-item');
-    var MasterList = require('collections/master-list');
+    var MasterListItemView = require('../views/master-list-item');
+    var MasterList = require('../collections/master-list');
     var Backbone = require('backbone');
     var MasterListView = Backbone.View.extend({
         el: '#master-list',
