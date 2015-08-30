@@ -24,7 +24,9 @@ var List = Backbone.Collection.extend({
         })
 
         var opts = _.extend({
-            url: this.url()
+            data: items,
+            contentType: 'application/json',
+            url: this.url
         }, options)
 
         this.sync('create', items, options);
