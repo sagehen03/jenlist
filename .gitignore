@@ -23,3 +23,5 @@ stm/ssrs/projects/SemCubeProcessing/SemCubeProcessing/bin/*
 TempStatsStore/
 derby.log
 stm/deploy/fabfile.pyc
+
+build/

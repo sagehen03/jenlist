@@ -1,10 +1,12 @@
 'use strict';
+var env = require('../env');
 var Backbone = require("backbone");
 var _ = require('underscore');
-var ListItem = require('models/list-item');
+var ListItem = require('../models/list-item');
+
 var List = Backbone.Collection.extend({
     model: ListItem,
-    url: 'http://localhost:8092/jenlist/items',
+    url: env.API_BASE + '/items',
 
     initialize: function(){
         this.on('request', this.beginSync);
