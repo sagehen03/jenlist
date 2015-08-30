@@ -29,4 +29,9 @@ public class MasterListDaoH2 implements MasterListDao {
         template.update("insert into master_list (name, created_at) values (?, ?)",
                 newItem.getName(), new Date());
     }
+
+    @Override
+    public void delete(MasterListItem itemToDelete) {
+        template.update("delete from master_list where id = ?", itemToDelete.getId());
+    }
 }

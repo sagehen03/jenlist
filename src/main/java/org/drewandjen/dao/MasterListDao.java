@@ -12,4 +12,6 @@ public interface MasterListDao {
     List<MasterListItem> fetchAll();
 
     void save(MasterListItem newItem);
+
+    void delete(MasterListItem itemToDelete);
 }

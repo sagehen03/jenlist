@@ -15,6 +15,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by dhite on 8/29/15.
@@ -45,5 +46,13 @@ public class MasterListDaoH2Test {
         assertThat(items, containsInAnyOrder(new MasterListItem(1, "Tomatoes"),
                 new MasterListItem(2, "Green Beans"), new MasterListItem(3, "Dog Treats"),
                 new MasterListItem(4, "Razor Blades")));
+    }
+
+    @Test
+    public void testDeleteItem(){
+        List<MasterListItem> initialItems = dao.fetchAll();
+        dao.delete(new MasterListItem(1, "Tomatoes"));
+        List<MasterListItem> remainingItems = dao.fetchAll();
+        assertTrue(remainingItems.size() == initialItems.size()-1);
     }
 }

@@ -39,4 +39,11 @@ public class MasterListController {
         LOG.info("Saving item {}", newItem);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/master-list/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<String> deleteItem(@PathVariable Integer id){
+        LOG.info("About to delete item {}", id);
+        dao.delete(new MasterListItem(id, ""));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
