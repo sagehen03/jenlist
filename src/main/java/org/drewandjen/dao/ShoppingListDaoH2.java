@@ -65,4 +65,12 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
                     shoppingListItem.getShoppingListId(), shoppingListItem.getId());
         }
     }
+
+    @Override
+    public void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate) {
+        for (ShoppingListItem shoppingListItem : itemsToUpdate) {
+            template.update("update shopping_list_item set completed = ?, name = ?, comment = ? where id = ?",
+                    shoppingListItem.isCompleted(), shoppingListItem.getName(), shoppingListItem.getComment(), shoppingListItem.getId());
+        }
+    }
 }

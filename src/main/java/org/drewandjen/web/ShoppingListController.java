@@ -60,5 +60,10 @@ public class ShoppingListController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value="/shopping-list", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateShoppingListItems(@RequestBody List<ShoppingListItem> itemsToUpdate){
+        dao.updateShoppingListItems(itemsToUpdate);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
