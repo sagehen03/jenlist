@@ -1,7 +1,7 @@
 package org.drewandjen.config;
 
 import org.drewandjen.dao.*;
-import org.drewandjen.web.ListController;
+import org.drewandjen.web.ShoppingListController;
 import org.drewandjen.web.MasterListController;
 import org.drewandjen.web.SimpleCorsFilter;
 import org.springframework.boot.SpringApplication;
@@ -78,8 +78,8 @@ public class WebRunner {
     }
 
     @Bean
-    public ListController listController() {
-        return new ListController(shoppingListDao());
+    public ShoppingListController listController() {
+        return new ShoppingListController(shoppingListDao());
     }
 
     @Bean
