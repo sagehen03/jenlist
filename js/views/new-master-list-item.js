@@ -1,13 +1,12 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
-var newItemTemplate = require('../views/templates/add-item.jade');
+var newItemTemplate = require('./templates/add-item.jade');
 
 var NewMasterListItemView = Backbone.View.extend({
-    el:  '#add-item',
 
     events: {
-        'keypress input': 'createOnEnter'
+        'submit form': 'create'
     },
 
     render: function () {
@@ -15,11 +14,17 @@ var NewMasterListItemView = Backbone.View.extend({
         return this;
     },
 
-    createOnEnter: function (e) {
-        if (e.which === 13 && this.$('input').val().trim()) {
-            console.log("Hello!");
-            this.collection.create({name: this.$input.val().trim()});
-            this.$input.val('');
+    create: function (e) {
+        e.preventDefault();
+        var $input = this.$('input'),
+            val = $input.val().trim();
+
+        if (val) {
+            // TODO: Handle when this fails to add.
+            this.collection.create({name: val});
+
+            // Reset the input.
+            $input.val('');
         }
     }
 });

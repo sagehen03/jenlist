@@ -15,6 +15,8 @@ var addItemView = new NewMasterListItem({
     collection: mlCollection
 });
 
+$('#master-list').append(masterListView.el);
 masterListView.render();
-addItemView.render();
 
+$('#add-item').append(addItemView.el);
+addItemView.render();

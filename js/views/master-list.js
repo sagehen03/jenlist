@@ -3,14 +3,20 @@ var Backbone = require('backbone');
 
 
 var MasterListView = Backbone.View.extend({
-    el: '#master-list',
+    tagName: 'ul',
+    className: 'list-unstyled',
 
     initialize: function(){
-      var that = this;
-      this.collection.fetch({success: function(){
-          that.render();
-      }});
-        this.listenTo(this.collection, 'add', this.addItem);
+        this.listenToOnce(this.collection, 'sync', function() {
+            // Initial render.
+            this.render()
+
+            // Rerender on subsequent add/remove events.
+            this.listenTo(this.collection, 'add remove', this.render);
+        });
+
+        // Fetch data.
+        this.collection.fetch();
     },
 
     render: function(){
