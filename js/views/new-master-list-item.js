@@ -21,7 +21,7 @@ var NewMasterListItemView = Backbone.View.extend({
 
         if (val) {
             // TODO: Handle when this fails to add.
-            this.collection.create({name: val});
+            this.collection.create({name: val}, {validate: true});
 
             // Reset the input.
             $input.val('');

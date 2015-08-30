@@ -3,7 +3,7 @@
     var Backbone = require("backbone");
     var ListItem = Backbone.Model.extend({
         defaults: {
-            title: "",
+            name: "",
             comments: "",
             dateAdded: "",
             completed: false
