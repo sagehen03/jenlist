@@ -1,36 +1,32 @@
-(function(){
-    'use strict'
-    var Backbone = require('backbone');
-    var _ = require('underscore');
-    var $ = require('jquery');
-    var NewMasterListItemView = Backbone.View.extend({
-        el:  '#newItemArea',
+var Backbone = require('backbone');
+var _ = require('underscore');
+var $ = require('jquery');
+var newItemTemplate = require('./templates/add-item.jade');
 
-        events: {
-            'keypress #newItem': 'createOnEnter'
-        },
+var NewMasterListItemView = Backbone.View.extend({
 
-        initialize: function(options){
-            this.masterCollection = options.masterCollection;
-            this.render();
-            this.$input = $('#newItem');
-            console.log(this.$input);
-        },
+    events: {
+        'submit form': 'create'
+    },
 
-        render: function () {
-            var tmpl = _.template($('#new-item-template').html());
-            this.$el.html(tmpl('{}'));
-            return this;
-        },
+    render: function () {
+        this.$el.html(newItemTemplate());
+        return this;
+    },
 
-        createOnEnter: function (e) {
-            if (e.which === 13 && this.$input.val().trim()) {
-                console.log("Hello!");
-                this.masterCollection.create({name: this.$input.val().trim()});
-                this.$input.val('');
-            }
+    create: function (e) {
+        e.preventDefault();
+        var $input = this.$('input'),
+            val = $input.val().trim();
+
+        if (val) {
+            // TODO: Handle when this fails to add.
+            this.collection.create({name: val});
+
+            // Reset the input.
+            $input.val('');
         }
-    });
-    module.exports = NewMasterListItemView;
+    }
+});
 
-})();
+module.exports = NewMasterListItemView;

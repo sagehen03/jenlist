@@ -2,23 +2,26 @@
 <html>
 <head>
     <title>Shopping List</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 
-    <div id="app"></div>
+    <div id="app">
+        <div class='container'>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4">
 
-    <div id="newItemArea">
+                    <h4>Master Shopping List</h4>
 
+                    <div id="main-content">
+                        <div id="add-item"></div>
+                        <div id="master-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <ul id="master-list">
-
-    </ul>
-    <script type="text/template" id="new-item-template">
-        <input type="text" id="newItem" placeholder="New List Item">
-        <input type="button" value="add" id="newItemBtn">
-    </script>
-
     <script src="build/bundle.js"></script>
 </body>
 </html>
