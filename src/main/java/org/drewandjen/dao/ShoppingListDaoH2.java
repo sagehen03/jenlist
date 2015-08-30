@@ -1,13 +1,11 @@
 package org.drewandjen.dao;
 
+import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -46,5 +44,17 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     @Override
     public ShoppingListItem getItemById(int id) {
         return null;
+    }
+
+    @Override
+    public List<ShoppingList> fetchAllShoppingLists() {
+        return template.query("select id, name, created_at from shopping_list", (rs, i) -> {
+            return new ShoppingList(rs.getInt("id"), rs.getString("name"), rs.getDate("created_at"));
+        });
+    }
+
+    @Override
+    public void saveShopingList(String shoppingListName) {
+        template.update("insert into shopping_list(name, created_at) values(?, CURRENT_TIMESTAMP())", shoppingListName);
     }
 }
