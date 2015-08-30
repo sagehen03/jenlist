@@ -1,12 +1,13 @@
-(function(){
-    'use strict';
-    var Backbone = require("backbone");
-    var MasterListItem = require('models/master-list-item');
-    var MasterList = Backbone.Collection.extend({
+'use strict';
 
-        model: MasterListItem,
-        url: 'http://localhost:8092/jenlist/master-list'
+var env = require('../env');
+var Backbone = require("backbone");
+var MasterListItem = require('../models/master-list-item');
 
-    });
-    module.exports = MasterList;
-})();
+var MasterList = Backbone.Collection.extend({
+
+    model: MasterListItem,
+    url: env.API_BASE + '/master-list'
+
+});
+module.exports = MasterList;

@@ -13,7 +13,8 @@ var jsFiles =  glob.sync('./js/**/*.js');
 // add custom browserify options here
 var customOpts = {
     entries: jsFiles,
-    debug: true
+    debug: true,
+    baseDir: './js'
 };
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
@@ -29,5 +30,5 @@ function bundle() {
         .pipe(source('bundle.js'))
         // optional, remove if you dont want sourcemaps
         // Add transformation tasks to the pipeline here.
-        .pipe(gulp.dest('./src/main/webapp/js'));
+        .pipe(gulp.dest('./build'));
 }
