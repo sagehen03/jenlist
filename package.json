@@ -14,6 +14,8 @@
     "gulp": "^3.9.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
+    "jade": "^1.11.0",
+    "jadeify": "^4.4.0",
     "jshint": "^2.8.0",
     "lodash.assign": "^3.2.0",
     "vinyl-buffer": "^1.0.0",
@@ -23,6 +25,11 @@
   },
   "scripts": {
     "test": "test"
+  },
+  "browserify": {
+    "transform": [
+      "jadeify"
+    ]
   },
   "author": "Drew",
   "license": "ISC"

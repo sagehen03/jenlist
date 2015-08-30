@@ -1,36 +1,34 @@
-(function(){
-    'use strict'
-    var Backbone = require('backbone');
-    var _ = require('underscore');
-    var $ = require('jquery');
-    var NewMasterListItemView = Backbone.View.extend({
-        el:  '#newItemArea',
+var Backbone = require('backbone');
+var _ = require('underscore');
+var $ = require('jquery');
+var newItemTemplate = require('../views/templates/item.jade');
 
-        events: {
-            'keypress #newItem': 'createOnEnter'
-        },
+var NewMasterListItemView = Backbone.View.extend({
+    el:  '#newItemArea',
 
-        initialize: function(options){
-            this.masterCollection = options.masterCollection;
-            this.render();
-            this.$input = $('#newItem');
-            console.log(this.$input);
-        },
+    events: {
+        'keypress #newItem': 'createOnEnter'
+    },
 
-        render: function () {
-            var tmpl = _.template($('#new-item-template').html());
-            this.$el.html(tmpl('{}'));
-            return this;
-        },
+    initialize: function(options){
+        this.masterCollection = options.masterCollection;
+        this.render();
+        this.$input = $('#newItem');
+        console.log(this.$input);
+    },
 
-        createOnEnter: function (e) {
-            if (e.which === 13 && this.$input.val().trim()) {
-                console.log("Hello!");
-                this.masterCollection.create({name: this.$input.val().trim()});
-                this.$input.val('');
-            }
+    render: function () {
+        this.$el.html(newItemTemplate());
+        return this;
+    },
+
+    createOnEnter: function (e) {
+        if (e.which === 13 && this.$input.val().trim()) {
+            console.log("Hello!");
+            this.masterCollection.create({name: this.$input.val().trim()});
+            this.$input.val('');
         }
-    });
-    module.exports = NewMasterListItemView;
+    }
+});
 
-})();
+module.exports = NewMasterListItemView;
