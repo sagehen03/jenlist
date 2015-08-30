@@ -1,7 +1,7 @@
 package org.drewandjen.web;
 
-import org.drewandjen.dao.ListDao;
-import org.drewandjen.model.ListItem;
+import org.drewandjen.dao.ShoppingListDao;
+import org.drewandjen.model.ShoppingListItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +16,17 @@ import java.util.List;
 @RestController
 public class ListController {
 
-    private ListDao dao;
+    private ShoppingListDao dao;
 
     private static final Logger LOG = LoggerFactory.getLogger(ListController.class);
 
-    public ListController(ListDao dao) {
+    public ListController(ShoppingListDao dao) {
         this.dao = dao;
     }
 
     @RequestMapping(value= "/items", method= RequestMethod.GET)
-    public List<ListItem> getItems(){
+    public List<ShoppingListItem> getItems(){
         LOG.info("Getting the items!");
-        return dao.getListItems();
+        return dao.fetchAll(1);
     }
 }

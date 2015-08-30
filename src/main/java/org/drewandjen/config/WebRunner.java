@@ -1,9 +1,6 @@
 package org.drewandjen.config;
 
-import org.drewandjen.dao.ListDao;
-import org.drewandjen.dao.MasterListDao;
-import org.drewandjen.dao.MasterListDaoH2;
-import org.drewandjen.dao.MemoryListDao;
+import org.drewandjen.dao.*;
 import org.drewandjen.web.ListController;
 import org.drewandjen.web.MasterListController;
 import org.drewandjen.web.SimpleCorsFilter;
@@ -31,13 +28,18 @@ import java.util.Collections;
 public class WebRunner {
 
     @Bean
-    public TomcatEmbeddedServletContainerFactory tomcatFactory(){
+    public TomcatEmbeddedServletContainerFactory tomcatFactory() {
         TomcatEmbeddedServletContainerFactory server = new TomcatEmbeddedServletContainerFactory("/jenlist", 8092);
         return server;
     }
 
     @Bean
-    public FilterRegistrationBean corsFilter(){
+    public ShoppingListDao shoppingListDao() {
+        return new ShoppingListDaoH2(getTemplate());
+    }
+
+    @Bean
+    public FilterRegistrationBean corsFilter() {
         SimpleCorsFilter filter = new SimpleCorsFilter();
         FilterRegistrationBean result = new FilterRegistrationBean();
         result.setFilter(filter);
@@ -46,14 +48,15 @@ public class WebRunner {
         return result;
     }
 
+
     @Bean
-    public ListDao dao(){
-        return new MemoryListDao();
+    public MasterListDao masterListDao() {
+        return new MasterListDaoH2(getTemplate());
     }
 
     @Bean
-    public MasterListDao masterListDao(){
-        return new MasterListDaoH2(new JdbcTemplate(dataSource()));
+    public JdbcTemplate getTemplate() {
+        return new JdbcTemplate(dataSource());
     }
 
     @Bean(name = "defaultDispatch")
@@ -69,18 +72,18 @@ public class WebRunner {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:schema.sql").addScript("classpath:data.sql").build();
     }
 
     @Bean
-    public ListController listController(){
-        return new ListController(dao());
+    public ListController listController() {
+        return new ListController(shoppingListDao());
     }
 
     @Bean
-    public MasterListController masterListController(){
+    public MasterListController masterListController() {
         return new MasterListController(masterListDao());
     }
 
