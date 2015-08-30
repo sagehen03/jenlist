@@ -1,12 +1,19 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
-var MasterList = require('./views/master-list');
+var MasterListView = require('./views/master-list');
 var NewMasterListItem = require('./views/new-master-list-item');
+var MasterListCollection = require('./collections/master-list');
 
+// Create the shared collection.
+var mlCollection = new MasterListCollection();
 
-var masterListView = new MasterList();
-var addItemView = new NewMasterListItem({masterCollection: masterListView.collection});
+var masterListView = new MasterListView({
+    collection: mlCollection
+});
+var addItemView = new NewMasterListItem({
+    collection: mlCollection
+});
 
 masterListView.render();
 addItemView.render();
