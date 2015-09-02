@@ -21,15 +21,14 @@ var List = Backbone.Collection.extend({
             var item = model.pick(_.keys(model.defaults));
             item.shoppingListId = shoppingListId;
             return item;
-        })
+        });
 
         var opts = _.extend({
-            data: items,
+            data: JSON.stringify(items),
             contentType: 'application/json',
             url: this.url
         }, options)
-
-        this.sync('create', items, options);
+        this.sync('create', this, opts);
     }
 });
 

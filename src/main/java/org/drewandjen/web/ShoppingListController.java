@@ -48,9 +48,7 @@ public class ShoppingListController {
     @RequestMapping(value="/shopping-list", method = RequestMethod.POST)
     public ResponseEntity<String> saveItem(@RequestBody List<ShoppingListItem> shoppingListItems){
         LOG.info("Saving shopping list item {}", shoppingListItems);
-        for (ShoppingListItem shoppingListItem : shoppingListItems) {
-            dao.save(shoppingListItem);
-        }
+        shoppingListItems.forEach(dao::save);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
