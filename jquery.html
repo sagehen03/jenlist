@@ -1,0 +1,35 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+</head>
+<body>
+    <div id="dialog" title="Additional Comments" style="display: none">
+        <form id="commentsForm">
+                <label for="itemComments">Comments:</label><br/>
+                <input type="text" name="comments" id="itemComments">
+        </form>
+    </div>
+    <form id="itemsForm">
+        <label for="newItem">New Item:</label><br/>
+        <input type="text" id="newItem" name="newItem">
+    </form>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="js/jq.js"></script>
+
+    <script>
+
+    //        $('#datepicker').datepicker();
+    //        var dialog = $('#dialog').dialog({modal: true});
+    //        dialog.on("keydown", function(e){
+    //            if(e.which == 13){
+    //                console.log($('#itemComments').val());
+    //                $('#dialog').dialog('close');
+    //            }
+    //        });
+    App.init();
+    </script>
+
+
+</body>
+</html>

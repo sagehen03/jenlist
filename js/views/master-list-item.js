@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
+var bb = require('bootbox');
 
 
 var MasterListItemView = Backbone.View.extend({
@@ -9,12 +10,22 @@ var MasterListItemView = Backbone.View.extend({
 
     events: {
         'click .remove': 'removeItem',
-        'change input': 'select'
+        'change input': 'select',
+        'click span': 'itemClick'
     },
 
     removeItem: function(){
         console.log("inside remove item for " + this.model.toJSON());
         this.model.destroy();
+    },
+
+    itemClick: function(){
+        bb.prompt("What is your name?", function(result) {
+            console.log(result);
+        });
+        //show comment options
+
+        console.log(this.model.get('name'));
     },
 
     select: function() {

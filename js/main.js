@@ -29,7 +29,7 @@ $('#master-list').append(masterListView.el);
 masterListView.render();
 
 $('#manage-items').append(manageView.el);
-manageView.render()
+manageView.render();
 
-// $('#lists').append(listsView.el);
-// listsView.render();
+ $('#lists').append(listsView.el);
+ listsView.render();
