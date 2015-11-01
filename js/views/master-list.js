@@ -1,44 +1,102 @@
-var MasterListItemView = require('../views/master-list-item');
-var Backbone = require('backbone');
+(function(){
+    'use strict';
+    var Backbone = require("backbone");
+    var Item = require('./master-list-item');
+    var $ = require('jquery');
+    require('jquery-ui');
 
+    module.exports = Backbone.View.extend({
 
-var MasterListView = Backbone.View.extend({
-    tagName: 'ul',
-    className: 'list-unstyled',
+        el: $('#master-list-area'),
 
-    events: {
-        'change input': 'selected'
-    },
+        selected: false,
 
-    initialize: function(){
-        this.listenToOnce(this.collection, 'sync', function() {
-            // Initial render.
-            this.render()
+        events: {
+          'focus' : '_setfocus',
+          'focusout' : '_losefocus'
+        },
 
-            // Rerender on subsequent add/remove events.
-            this.listenTo(this.collection, 'add remove', this.render);
-        });
+        initialize: function(){
+            this.selected = false;
+            this.commentsDialog = $('#dialog');
+            var itemCommentsInput = $('#itemComments');
+            $(document).on('keydown', {view: this}, this.keydown);
+            itemCommentsInput.on('keydown', {view: this, itemName: this.getSelectedItem},
+                function(e){
+                    var view = e.data.view;
+                    if(e.which == 13){
+                        console.log("Save " + e.data.itemName(view) + " with comment " + itemCommentsInput.val());
+                        itemCommentsInput.val('');               1
+                        view.commentsDialog.dialog('close');
+                        return false;
+                    }
+            });
+        },
 
-        // Fetch data.
-        this.collection.fetch();
-    },
+        getSelectedItem: function(view){
+            return view.collection.find(function (i) {
+                return i.get('selected');
+            }).get('name');
+        },
 
-    render: function(){
-        var mlView = this.collection.map(function(item){
-            return (new MasterListItemView({model: item})).render().el;
-        });
-        this.$el.html(mlView);
-        return this;
-    },
+        isSelected: function(){
+            return this.selected;
+        },
 
-    addItem: function(item){
-        var view = new MasterListItemView({
-            model: item
-        });
-        this.$el.append(view.el);
-        view.render();
-        return this;
-    }
+        _losefocus: function (e) {
+            if(e.relatedTarget == $('#itemComments')[0]){
+                return;
+            }
+            this.selected = false;
+            this.collection.clearSelection();
+        },
 
-});
-module.exports = MasterListView;
+        _setfocus: function(){
+            this.selected = true;
+        },
+
+        keydown: function(e){
+            var view = e.data.view;
+
+            if ( !view.selected ){
+                return;
+            }
+
+            var collection = view.collection;
+
+            if( e.which == 40 ) {
+                collection.selectedItem++;
+                if( !collection.at( collection.selectedItem ) ){
+                    collection.selectedItem = 0;
+                }
+                var item = collection.at(collection.selectedItem);
+                collection.clearSelection();
+                item.set('selected', true);
+            }
+
+            if (e.which == 13) {
+                view.commentsDialog.dialog({show: true, title: view.getSelectedItem(view)});
+
+                return false;
+            }
+
+            if ( e.which == 38 ){
+                collection.selectedItem--;
+                if( !collection.at( collection.selectedItem ) ){
+                    collection.selectedItem = collection.size() - 1;
+                }
+                var item = collection.at(collection.selectedItem);
+                collection.clearSelection();
+                item.set('selected', true);
+            }
+        },
+
+        render: function(){
+            var coll = this.collection;
+            this.collection.each(function (item){
+                var item2 = new Item({model: item, collection: coll}).render();
+                this.$('#master-list').append(item2.el);
+            }, this);
+        }
+    });
+})();
