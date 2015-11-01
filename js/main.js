@@ -1,35 +1,19 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
-var MasterListCollection = require('./collections/master-list');
-var ListsCollection = require('./collections/lists');
+var Collection = require('../js/collections/new-master-list');
+var Item = require('../js/models/new-master-list-item');
+var collection = new Collection();
+collection.add(new Item({name: 'potatoes'}));
+collection.add(new Item({name: 'squash'}));
+collection.add(new Item({name: 'onions'}));
+collection.add(new Item({name: 'peppers'}));
+collection.add(new Item({name: 'kale'}));
+$( function (){
+    var MlView = require('../js/views/new-master-list');
 
-var MasterListView = require('./views/master-list');
-var NewMasterListItem = require('./views/new-master-list-item');
-var ManageView = require('./views/manage');
-var ListsView = require('./views/lists');
-
-// Create the shared collection.
-var mlCollection = new MasterListCollection();
-
-var masterListView = new MasterListView({
-    collection: mlCollection
+    var view = new MlView({collection: collection});
+    view.render();
 });
 
-var listsView = new ListsView({
-    collection: new ListsCollection()
-});
 
-var manageView = new ManageView({
-    collection: mlCollection
-})
-
-
-$('#master-list').append(masterListView.el);
-masterListView.render();
-
-$('#manage-items').append(manageView.el);
-manageView.render();
-
- $('#lists').append(listsView.el);
- listsView.render();

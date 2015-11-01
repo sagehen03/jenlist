@@ -61,7 +61,7 @@ var App = (function () {
                         return false;
                     }
                     keyPressInProgress = true;
-                    var comments = $('#itemComments').val();
+                    var comments = $(this)('#itemComments').val();
                     if(comments) {
                         console.log(comments + ' ' + selectedItem.text());
                     } else {

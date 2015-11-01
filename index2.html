@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .selected {
+            font-weight: bold;
+        }
+
+        :focus {
+            outline: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <title>Shopping List</title>
+    <div id="dialog" title="" style="display: none">
+        <form id="commentsForm">
+            <label for="itemComments">Comments:</label><br/>
+            <input type="text" name="comments" id="itemComments">
+        </form>
+    </div>
+    <div id="master-list-area" tabindex="1">
+        <ul id="master-list">
+
+        </ul>
+    </div>
+    <script src="build/bundle.js"></script>
+</head>
+</html>

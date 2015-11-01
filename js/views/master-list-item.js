@@ -1,6 +1,5 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
-var bb = require('bootbox');
 
 
 var MasterListItemView = Backbone.View.extend({
@@ -20,9 +19,6 @@ var MasterListItemView = Backbone.View.extend({
     },
 
     itemClick: function(){
-        bb.prompt("What is your name?", function(result) {
-            console.log(result);
-        });
         //show comment options
 
         console.log(this.model.get('name'));
