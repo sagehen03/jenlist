@@ -2,7 +2,7 @@
 var env = require('../env');
 var Backbone = require("backbone");
 var _ = require('underscore');
-var ListItem = require('../models/list-item');
+var ListItem = require('../models/target-list-item');
 
 
 var List = Backbone.Collection.extend({

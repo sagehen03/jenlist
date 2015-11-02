@@ -21,7 +21,7 @@ module.exports = Backbone.View.extend({
     },
 
     render: function () {
-        $('#target-list').append(this.el);
+        $('#target-list-selector').append(this.el);
         this.collection.each(function (list){
             this.$el.append(this.template(list.toJSON()));
         }, this);
