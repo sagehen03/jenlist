@@ -6,16 +6,20 @@
     module.exports = Backbone.Collection.extend({
         model: ListItem,
 
-        selectedList: null,
+        selectedListId: null,
 
-        initialize: function(options){
-            this.selectedList = options.selectedList;
+        initialize: function(){
+            this.listenTo(Backbone, "masterListChanged", this.updateList);
+            //this.listenTo(this.selectedList, 'change:id', this.updateUrl)
+        },
+
+        updateList: function(e){
+            this.selectedListId = e.selectedListId;
             this.updateUrl();
-            this.listenTo(this.selectedList, 'change:id', this.updateUrl)
         },
 
         updateUrl: function(){
-            this.url = env.API_BASE + '/shopping-list/' + this.selectedList.get('id');
+            this.url = env.API_BASE + '/shopping-list/' + this.selectedListId;
         }
 
     });

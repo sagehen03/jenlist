@@ -10,7 +10,7 @@
         el: $('#target-list-area'),
 
         initialize: function () {
-            this.listenTo(Backbone, "masterListChanged", this.sayHello);
+            this.listenTo(this.collection, 'change:selectedListId', this.render);
             //_.bindAll(this, 'fetchCallBack');
             //this.collection.fetch({success: this.fetchCallBack});
         },
@@ -19,10 +19,6 @@
             //var first = this.collection.first();
             //console.log(this.collection);
             //console.log(first.get('id') + " " + first.get('name'));
-        },
-
-        sayHello: function(){
-          //alert("Woo hoo!");
         },
 
         render: function () {
