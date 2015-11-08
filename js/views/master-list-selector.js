@@ -7,11 +7,21 @@ module.exports = Backbone.View.extend({
 
     el: '<select id="targetList">',
 
+    events : {
+      "change #targetList" : "masterListChanged"
+    },
+
+    masterListChanged: function(){
+        Backbone.trigger("masterListChanged", {"data": "1"});
+    },
+
     initialize: function() {
+
+
         this.listenToOnce(this.collection, 'sync', function() {
             // Initial render.
             this.render();
-
+            this.masterListChanged();
             // Rerender on subsequent add/remove events.
             this.listenTo(this.collection, 'add remove', this.render);
         });

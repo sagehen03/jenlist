@@ -2,23 +2,27 @@
     'use strict';
     var Backbone = require("backbone");
     var $ = require('jquery');
+    var _ = require('underscore');
     require('jquery-ui');
 
     module.exports = Backbone.View.extend({
 
         el: $('#target-list-area'),
 
-        listCollection: null,
+        initialize: function () {
+            this.listenTo(Backbone, "masterListChanged", this.sayHello);
+            //_.bindAll(this, 'fetchCallBack');
+            //this.collection.fetch({success: this.fetchCallBack});
+        },
 
-        initialize: function (options) {
-            options.listCollection.fetch({async: false});
-            var first = options.listCollection.first();
-            console.log(options.listCollection);
-            console.log(first.get('id') + " " + first.get('name'));
+        fetchCallBack: function(){
+            //var first = this.collection.first();
+            //console.log(this.collection);
+            //console.log(first.get('id') + " " + first.get('name'));
+        },
 
-            //this.collection.fetch();
-            //this.render();
-            //this.listenTo(collection, 'change', this.render);
+        sayHello: function(){
+          //alert("Woo hoo!");
         },
 
         render: function () {

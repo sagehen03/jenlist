@@ -18,11 +18,13 @@ collection.add(new Item({name: 'peppers'}));
 collection.add(new Item({name: 'kale'}));
 $( function (){
     var listCollection = new ListCollection();
-    var targetList = new TargetListView({listCollection: listCollection});
+    //var targetListColl = new TargetListCollection();
+    var targetList = new TargetListView();
     var tView = new TargetSelectorView({collection: listCollection});
     tView.render();
     var view = new MlView({collection: collection});
     view.render();
+
 });
 
 
