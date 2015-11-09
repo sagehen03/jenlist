@@ -19,6 +19,10 @@
         initialize: function(){
             this.selected = false;
             this.commentsDialog = $('#dialog');
+            this.listenToOnce(this.collection, 'sync', function(){
+                this.render();
+            });
+            this.collection.fetch();
             var itemCommentsInput = $('#itemComments');
             $(document).on('keydown', {view: this}, this.keydown);
             itemCommentsInput.on('keydown', {view: this, itemName: this.getSelectedItem},
