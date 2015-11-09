@@ -38,7 +38,7 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
         LOG.info("Saving item {}", item);
         template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) " +
                         "values (?,?,?,?,CURRENT_TIMESTAMP())",
-                item.getShoppingListId(), item.getName(), item.getComment(), item.isCompleted());
+                item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     public void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate) {
         for (ShoppingListItem shoppingListItem : itemsToUpdate) {
             template.update("update shopping_list_item set completed = ?, name = ?, comment = ? where id = ?",
-                    shoppingListItem.isCompleted(), shoppingListItem.getName(), shoppingListItem.getComment(), shoppingListItem.getId());
+                    shoppingListItem.isCompleted(), shoppingListItem.getName(), shoppingListItem.getComments(), shoppingListItem.getId());
         }
     }
 }

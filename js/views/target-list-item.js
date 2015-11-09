@@ -3,7 +3,7 @@
     var Backbone = require("backbone");
     var _ = require('underscore');
     var template = _.template(
-        '<span><%= name%></span>'
+        '<span><%= name%> <% if (comments) {%> (<%= comments%>) <%} %></span>'
     );
     module.exports = Backbone.View.extend({
 

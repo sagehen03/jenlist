@@ -11,6 +11,7 @@
 
         initialize: function () {
             this.listenTo(this.collection, 'change:selectedListId', this.render);
+            this.listenTo(this.collection, 'add remove', this.render);
             //_.bindAll(this, 'fetchCallBack');
             //this.collection.fetch({success: this.fetchCallBack});
         },

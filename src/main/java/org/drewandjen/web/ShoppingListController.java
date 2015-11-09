@@ -1,5 +1,6 @@
 package org.drewandjen.web;
 
+import org.apache.commons.lang3.StringUtils;
 import org.drewandjen.dao.ShoppingListDao;
 import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
@@ -39,17 +40,18 @@ public class ShoppingListController {
         return dao.fetchAllShoppingLists();
     }
 
-    @RequestMapping(value="/shopping-list/{shoppingListName}", method=RequestMethod.POST)
-    public ResponseEntity<String> addNewShoppingList(@PathVariable String shoppingListName){
-        dao.saveShopingList(shoppingListName);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
-    @RequestMapping(value="/shopping-list", method = RequestMethod.POST)
-    public ResponseEntity<String> saveItem(@RequestBody List<ShoppingListItem> shoppingListItems){
-        LOG.info("Saving shopping list item {}", shoppingListItems);
-        shoppingListItems.forEach(dao::save);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @RequestMapping(value="/shopping-list/{listIdOrNewList}", method = RequestMethod.POST)
+    public ResponseEntity<String> saveItem(@PathVariable String listIdOrNewList, @RequestBody ShoppingListItem shoppingListItem){
+        if(StringUtils.isNumeric(listIdOrNewList)){
+            LOG.info("Saving shopping list item {}", shoppingListItem);
+            shoppingListItem.setShoppingListId(Integer.parseInt(listIdOrNewList));
+            dao.save(shoppingListItem);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            dao.saveShopingList(listIdOrNewList);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     @RequestMapping(value="/shopping-list", method = RequestMethod.DELETE)
