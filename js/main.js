@@ -18,8 +18,7 @@ collection.add(new Item({name: 'peppers'}));
 collection.add(new Item({name: 'kale'}));
 $( function (){
     var listCollection = new ListCollection();
-    //var targetListColl = new TargetListCollection();
-    var targetList = new TargetListView();
+    var targetList = new TargetListView({collection: new TargetListCollection()});
     var tView = new TargetSelectorView({collection: listCollection});
     tView.render();
     var view = new MlView({collection: collection});

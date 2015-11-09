@@ -16,6 +16,10 @@
         updateList: function(e){
             this.selectedListId = e.selectedListId;
             this.updateUrl();
+            var that = this;
+            this.fetch({success: function(){
+                that.trigger('change:selectedListId', {"selectedListId": that.selectedListId});
+            }});
         },
 
         updateUrl: function(){

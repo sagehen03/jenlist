@@ -2,7 +2,7 @@
     'use strict';
     var Backbone = require("backbone");
     var $ = require('jquery');
-    var _ = require('underscore');
+    var TLItem = require('./target-list-item');
     require('jquery-ui');
 
     module.exports = Backbone.View.extend({
@@ -22,9 +22,11 @@
         },
 
         render: function () {
-            this.collection.each(function (item){
-                item.render();
-                this.$('#target-list').append(item.el);
+            this.$('#target-list').empty();
+            this.collection.each(function (item) {
+                var tlItem = new TLItem({model: item});
+                tlItem.render();
+                this.$('#target-list').append(tlItem.el);
             }, this);
         }
     });

@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
     el: '<select id="targetList">',
 
     events : {
-      "change #targetList" : "masterListChanged"
+      'change' : "masterListChanged"
     },
 
     masterListChanged: function() {
