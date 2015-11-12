@@ -1,6 +1,7 @@
 package org.drewandjen.config;
 
 import org.drewandjen.dao.*;
+import org.drewandjen.web.CategoryController;
 import org.drewandjen.web.ShoppingListController;
 import org.drewandjen.web.MasterListController;
 import org.drewandjen.web.SimpleCorsFilter;
@@ -31,6 +32,11 @@ public class WebRunner {
     public TomcatEmbeddedServletContainerFactory tomcatFactory() {
         TomcatEmbeddedServletContainerFactory server = new TomcatEmbeddedServletContainerFactory("/jenlist", 8092);
         return server;
+    }
+
+    @Bean
+    public CategoryDao categoryDao(){
+        return new CategoryDaoH2(getTemplate());
     }
 
     @Bean
@@ -85,6 +91,11 @@ public class WebRunner {
     @Bean
     public MasterListController masterListController() {
         return new MasterListController(masterListDao());
+    }
+
+    @Bean
+    public CategoryController categoryController(){
+        return new CategoryController(categoryDao());
     }
 
     public static void main(String[] args) {

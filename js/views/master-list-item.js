@@ -3,15 +3,20 @@
     var Backbone = require("backbone");
     var _ = require('underscore');
     var template = _.template(
-        '<span><%= name%></span>'
+        '<td><%= name%></td><td><%= category %></td><td><a href="#">Del</a></td>'
     );
     module.exports = Backbone.View.extend({
         events: {
-            'click': 'click'
+            'click': 'click',
+            'click a': 'removeItem'
         },
 
         template: template,
-        tagName: 'li',
+        tagName: 'tr',
+
+        removeItem: function(){
+          this.model.destroy();
+        },
 
         click: function(){
             this.collection.clearSelection();

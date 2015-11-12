@@ -1,11 +1,20 @@
-insert into master_list(name, created_at) values('Tomatoes', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Green Beans', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Dog Treats', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Coffee', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('French Bread', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Chicken', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Avocadoes', CURRENT_TIMESTAMP());
-insert into master_list(name, created_at) values('Milk', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Produce', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Bakery', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Cereal', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Dairy', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Crackers', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Baking', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Frozen Foods', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Butcher', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Prepared Foods', CURRENT_TIMESTAMP());
+
+insert into master_list(name, category, created_at) values('Tomatoes', 'Produce', CURRENT_TIMESTAMP());
+insert into master_list(name, category, created_at) values('Green Beans', 'Produce', CURRENT_TIMESTAMP());
+insert into master_list(name, category, created_at) values('French Bread', 'Bakery', CURRENT_TIMESTAMP());
+insert into master_list(name, category, created_at) values('Chicken', 'Butcher', CURRENT_TIMESTAMP());
+insert into master_list(name, category, created_at) values('Avocadoes', 'Produce', CURRENT_TIMESTAMP());
+insert into master_list(name, category, created_at) values('Milk', 'Dairy', CURRENT_TIMESTAMP());
+
 insert into shopping_list(name, created_at) values('Whole Foods List', CURRENT_TIMESTAMP());
 insert into shopping_list(name, created_at) values('Trader Joe''s List', CURRENT_TIMESTAMP());
 

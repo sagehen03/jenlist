@@ -29,7 +29,6 @@
                 function(e){
                     var view = e.data.view;
                     if(e.which == 13){
-                        console.log("Save " + e.data.itemName(view) + " with comment " + itemCommentsInput.val());
                         Backbone.trigger("addItemToTarget", {"name":  e.data.itemName(view), "comments": itemCommentsInput.val()});
                         itemCommentsInput.val('');
                         view.commentsDialog.dialog('close');
