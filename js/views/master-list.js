@@ -22,6 +22,9 @@
             this.listenToOnce(this.collection, 'sync', function(){
                 this.render();
             });
+            this.listenTo(this.collection, 'destroy add', function(){
+                this.render();
+            });
             this.collection.fetch();
             var itemCommentsInput = $('#itemComments');
             $(document).on('keydown', {view: this}, this.keydown);
@@ -96,6 +99,7 @@
         },
 
         render: function(){
+            $('#master-list').html('<tr><th>Name</th><th>Category</th><th></th></tr>');
             var coll = this.collection;
             this.collection.each(function (item){
                 var item2 = new Item({model: item, collection: coll}).render();
