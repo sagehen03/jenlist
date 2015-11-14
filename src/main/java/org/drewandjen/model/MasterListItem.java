@@ -9,9 +9,12 @@ public class MasterListItem {
 
     private String name;
 
-    public MasterListItem(int id, String name) {
+    private String category;
+
+    public MasterListItem(int id, String name, String category) {
         this.id = id;
         this.name = name;
+        this.category = category;
     }
 
     public MasterListItem() {
@@ -26,6 +29,7 @@ public class MasterListItem {
         return "MasterListItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 
@@ -37,6 +41,10 @@ public class MasterListItem {
         return name;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,15 +52,15 @@ public class MasterListItem {
 
         MasterListItem that = (MasterListItem) o;
 
-        if (id != that.id) return false;
-        return !(name != null ? !name.equals(that.name) : that.name != null);
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return !(category != null ? !category.equals(that.category) : that.category != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
     }
 }

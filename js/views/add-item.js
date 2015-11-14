@@ -14,6 +14,7 @@
         addItemToMasterList: function(){
             this.attributes.masterListColl.create({name: $('#new-master-item').val(),
                 category: $('#categories').find(':selected').text()});
+            $('#new-master-item').val('');
 
         },
 

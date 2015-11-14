@@ -25,20 +25,20 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     @Override
     public List<ShoppingListItem> fetchAll(int listId) {
         LOG.info("Getting shopping list items");
-        return template.query("SELECT shopping_list_id, id, name, comment, completed, created_at FROM shopping_list_item where shopping_list_id = ?",
+        return template.query("SELECT shopping_list_id, id, name, comment, completed, created_at, category FROM shopping_list_item where shopping_list_id = ?",
                 (rs, i) -> {
                     return new ShoppingListItem(rs.getString("name"),
                             rs.getString("comment"), rs.getDate("created_at"), rs.getBoolean("completed"),
-                            rs.getInt("shopping_list_id"), rs.getInt("id"));
+                            rs.getInt("shopping_list_id"), rs.getInt("id"), rs.getString("category"));
                 }, listId);
     }
 
     @Override
     public void save(ShoppingListItem item) {
         LOG.info("Saving item {}", item);
-        template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) " +
-                        "values (?,?,?,?,CURRENT_TIMESTAMP())",
-                item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted());
+        template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
+                        "values (?,?,?,?,?,CURRENT_TIMESTAMP())",
+                item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted(), item.getCategory());
     }
 
     @Override

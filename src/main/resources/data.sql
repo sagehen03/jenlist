@@ -18,11 +18,11 @@ insert into master_list(name, category, created_at) values('Milk', 'Dairy', CURR
 insert into shopping_list(name, created_at) values('Whole Foods List', CURRENT_TIMESTAMP());
 insert into shopping_list(name, created_at) values('Trader Joe''s List', CURRENT_TIMESTAMP());
 
-insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) values
-  (1, 'Tomatoes', '3', true, CURRENT_TIMESTAMP());
-insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) values
-  (1, 'Dog Treats', 'Barkleys Brand', false, CURRENT_TIMESTAMP());
-insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) values
-  (1, 'Green Beans', 'half pound', false, CURRENT_TIMESTAMP());
-insert into shopping_list_item(shopping_list_id, name, comment, completed, created_at) values
-(2, 'Green Chiles', 'half pound', false, CURRENT_TIMESTAMP())
+insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
+  (1, 'Tomatoes', '3', false, 'Produce', CURRENT_TIMESTAMP());
+insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
+  (1, 'Milk', 'Organic non-fat', false, 'Dairy', CURRENT_TIMESTAMP());
+insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
+  (1, 'Green Beans', 'half pound', false, 'Produce', CURRENT_TIMESTAMP());
+insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
+(2, 'Avocadoes', 'Haas', false, 'Produce', CURRENT_TIMESTAMP())

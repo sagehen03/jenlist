@@ -99,11 +99,11 @@
         },
 
         render: function(){
-            $('#master-list').html('<tr><th>Name</th><th>Category</th><th></th></tr>');
+            $('#master-list-body').empty();
             var coll = this.collection;
             this.collection.each(function (item){
                 var item2 = new Item({model: item, collection: coll}).render();
-                this.$('#master-list').append(item2.el);
+                this.$('#master-list-body').append(item2.el);
             }, this);
         }
     });

@@ -5,7 +5,7 @@ var $ = require('jquery');
 module.exports = Backbone.View.extend({
     template: _.template('<option value="<%=id%>"><%=name%></option>'),
 
-    el: '<select id="targetList">',
+    el: '<select id="targetList" class="form-control">',
 
     events : {
       'change' : "masterListChanged"

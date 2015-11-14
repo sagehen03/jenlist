@@ -5,6 +5,7 @@
         defaults: {
             name: "",
             comments: "",
+            category: "",
             dateAdded: "",
             completed: false
         }

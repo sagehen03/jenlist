@@ -23,11 +23,11 @@
         },
 
         render: function () {
-            this.$('#target-list').empty();
+            this.$('#target-list-body').empty();
             this.collection.each(function (item) {
                 var tlItem = new TLItem({model: item});
                 tlItem.render();
-                this.$('#target-list').append(tlItem.el);
+                this.$('#target-list-body').append(tlItem.el);
             }, this);
         }
     });

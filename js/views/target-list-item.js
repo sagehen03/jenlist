@@ -3,16 +3,15 @@
     var Backbone = require("backbone");
     var _ = require('underscore');
     var template = _.template(
-        '<span><%= name%> <% if (comments) {%> (<%= comments%>) <%} %></span>'
+        '<td><%= name%> <% if (comments) {%> (<%= comments%>) <%} %></td><td><%= category%></td><td>Del</td>'
     );
     module.exports = Backbone.View.extend({
 
         template: template,
-        tagName: 'li',
+        tagName: 'tr',
 
         render: function(){
             this.$el.html(this.template(this.model.toJSON()));
-            this.$el.toggleClass('completed', this.model.get('completed'));
             return this;
         },
 

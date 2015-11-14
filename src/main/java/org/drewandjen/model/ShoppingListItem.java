@@ -19,12 +19,16 @@ public class ShoppingListItem {
 
     private int id;
 
-    public ShoppingListItem(String name, String comment, Date createdAt, boolean completed, int shoppingListId, int id) {
+    private String category;
+
+    public ShoppingListItem(String name, String comment, Date createdAt,
+                            boolean completed, int shoppingListId, int id, String category) {
         this.name = name;
         this.comments = comment;
         this.createdAt = createdAt;
         this.completed = completed;
         this.shoppingListId = shoppingListId;
+        this.category = category;
         this.id = id;
     }
 
@@ -83,10 +87,16 @@ public class ShoppingListItem {
     public String toString() {
         return "ShoppingListItem{" +
                 "name='" + name + '\'' +
-                ", comment='" + comments + '\'' +
+                ", comments='" + comments + '\'' +
                 ", createdAt=" + createdAt +
                 ", completed=" + completed +
+                ", shoppingListId=" + shoppingListId +
                 ", id=" + id +
+                ", category='" + category + '\'' +
                 '}';
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

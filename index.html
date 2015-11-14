@@ -14,6 +14,8 @@
             text-decoration: line-through;
         }
     </style>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <title>Shopping List</title>
     <div id="dialog" title="" style="display: none">
@@ -22,28 +24,63 @@
             <input type="text" name="comments" id="itemComments">
         </form>
     </div>
-    <div id="add-item-area">
-        <input type="text" id="new-master-item">
-        <select id="categories">
-        </select>
-        <button id="add-item">Add</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <div id="add-item-area">
+                    <form>
+                        <div class="form-group">
+                            <label for="new-master-item">New Item:</label>
+                            <input type="text" id="new-master-item" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Category:</label>
+                            <select id="categories" class="form-control">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button id="add-item" class="btn-default">Add</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="master-list-area" tabindex="1">
+                    <table id="master-list" class="table table-striped table-hover">
+                        <thead>
+                            <tr><th>Name</th><th>Category</th><th></th></tr>
+                        </thead>
+                        <tbody id="master-list-body">
+
+                         </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="col-xs-6">
+                <form>
+                    <div class="form-group">
+                    <div id="target-list-selector" tabindex="2">
+                        <label for="targetList">Target List:</label>
+                    </div>
+                    </div>
+
+                    <div id="target-list-area" tabindex="3">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr><th>Name</th><th>Category</th><th></th></tr>
+                            </thead>
+                            <tbody id="target-list-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div id="master-list-area" tabindex="1">
-        <table id="master-list">
-
-        </table>
-    </div>
-
-    <div id="target-list-selector" tabindex="2">
-        <label for="targetList">Target List:</label>
-    </div>
-
-    <div id="target-list-area" tabindex="3">
-        <ul id="target-list">
-
-        </ul>
-    </div>
 
     <script src="build/bundle.js"></script>
 </head>

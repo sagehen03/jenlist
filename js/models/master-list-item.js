@@ -4,7 +4,7 @@
     module.exports = Backbone.Model.extend({
         defaults: {
             name: "Tomatoes",
-            category: "Produce",
+            category: "",
             selected: false
         }
     });
