@@ -3,12 +3,12 @@
     var Backbone = require("backbone");
     var _ = require('underscore');
     var template = _.template(
-        '<td><%= name%></td><td><%= category %></td><td><a href="#">Del</a></td>'
+        '<td><%= name%></td><td><%= category %></td><td><a href="#" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>'
     );
     module.exports = Backbone.View.extend({
         events: {
             'click': 'click',
-            'click a': 'removeItem'
+            'click a .delete': 'removeItem'
         },
 
         template: template,

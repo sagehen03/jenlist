@@ -13,6 +13,12 @@
         .completed {
             text-decoration: line-through;
         }
+
+        .delete {
+            color: #68251d;
+        }
+
+
     </style>
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
@@ -45,7 +51,7 @@
                     </form>
                 </div>
 
-                <div id="master-list-area" tabindex="1">
+                <div id="master-list-area" tabindex="1" style="max-height: 500px; overflow-y: scroll">
                     <table id="master-list" class="table table-striped table-hover">
                         <thead>
                             <tr><th>Name</th><th>Category</th><th></th></tr>
@@ -66,7 +72,7 @@
                     </div>
                     </div>
 
-                    <div id="target-list-area" tabindex="3">
+                    <div id="target-list-area" tabindex="3" class="pre-scrollable">
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr><th>Name</th><th>Category</th><th></th></tr>
