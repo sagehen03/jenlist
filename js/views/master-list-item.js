@@ -8,7 +8,7 @@
     module.exports = Backbone.View.extend({
         events: {
             'click': 'click',
-            'click a .delete': 'removeItem'
+            'click a.delete': 'removeItem'
         },
 
         template: template,

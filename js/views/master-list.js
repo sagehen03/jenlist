@@ -28,11 +28,13 @@
             this.collection.fetch();
             var itemCommentsInput = $('#itemComments');
             $(document).on('keydown', {view: this}, this.keydown);
-            itemCommentsInput.on('keydown', {view: this, itemName: this.getSelectedItem},
+            itemCommentsInput.on('keydown', {view: this, selectedItem: this.getSelectedItem},
                 function(e){
                     var view = e.data.view;
                     if(e.which == 13){
-                        Backbone.trigger("addItemToTarget", {"name":  e.data.itemName(view), "comments": itemCommentsInput.val()});
+                        var itemToAdd = e.data.selectedItem(view);
+                        Backbone.trigger("addItemToTarget", {"name":  itemToAdd.get('name'), "category": itemToAdd.get('category'),
+                             "comments": itemCommentsInput.val()});
                         itemCommentsInput.val('');
                         view.commentsDialog.dialog('close');
                         return false;
@@ -43,7 +45,7 @@
         getSelectedItem: function(view){
             return view.collection.find(function (i) {
                 return i.get('selected');
-            }).get('name');
+            });
         },
 
         isSelected: function(){

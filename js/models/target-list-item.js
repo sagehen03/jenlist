@@ -5,6 +5,7 @@
         defaults: {
             name: "",
             comments: "",
+            shoppingListId: 0,
             category: "",
             dateAdded: "",
             completed: false

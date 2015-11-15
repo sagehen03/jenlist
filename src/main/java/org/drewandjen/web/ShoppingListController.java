@@ -2,6 +2,7 @@ package org.drewandjen.web;
 
 import org.apache.commons.lang3.StringUtils;
 import org.drewandjen.dao.ShoppingListDao;
+import org.drewandjen.model.MasterListItem;
 import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
 import org.slf4j.Logger;
@@ -54,9 +55,10 @@ public class ShoppingListController {
         }
     }
 
-    @RequestMapping(value="/shopping-list", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteItem(@RequestBody List<ShoppingListItem> shoppingListItem){
-        dao.deleteShoppingListItem(shoppingListItem);
+    @RequestMapping(value = "/shopping-list/{listId}/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<String> deleteItem(@PathVariable Integer listId, @PathVariable Integer id){
+        LOG.info("About to delete shopping list item {}", id);
+        dao.deleteShoppingListItem(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

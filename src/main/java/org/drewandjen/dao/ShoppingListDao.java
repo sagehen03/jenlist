@@ -21,7 +21,7 @@ public interface ShoppingListDao {
 
     void saveShopingList(String shoppingListName);
 
-    void deleteShoppingListItem(List<ShoppingListItem> shoppingListItems);
+    void deleteShoppingListItem(int itemId);
 
     void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate);
 }

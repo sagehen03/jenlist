@@ -12,14 +12,6 @@
         initialize: function () {
             this.listenTo(this.collection, 'change:selectedListId', this.render);
             this.listenTo(this.collection, 'add remove', this.render);
-            //_.bindAll(this, 'fetchCallBack');
-            //this.collection.fetch({success: this.fetchCallBack});
-        },
-
-        fetchCallBack: function(){
-            //var first = this.collection.first();
-            //console.log(this.collection);
-            //console.log(first.get('id') + " " + first.get('name'));
         },
 
         render: function () {

@@ -19,7 +19,7 @@ public class MasterListDaoH2 implements MasterListDao {
 
     @Override
     public List<MasterListItem> fetchAll() {
-        return template.query("SELECT id, name, category FROM master_list ORDER BY created_at", (rs, rowNum) -> {
+        return template.query("SELECT id, name, category FROM master_list ORDER BY category", (rs, rowNum) -> {
             return new MasterListItem(rs.getInt("id"), rs.getString("name"), rs.getString("category"));
         });
     }
