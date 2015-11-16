@@ -8,6 +8,10 @@
 
         selectedListId: null,
 
+        comparator: function(item){
+            return [item.get('category'), item.get('name')];
+        },
+
         initialize: function(){
             this.listenTo(Backbone, "masterListChanged", this.updateList);
             this.listenTo(Backbone, "addItemToTarget", this.newItem);

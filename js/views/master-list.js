@@ -13,7 +13,13 @@
 
         events: {
           'focus' : '_setfocus',
-          'focusout' : '_losefocus'
+          'focusout' : '_losefocus',
+          'click th.sort' : 'sortList'
+        },
+
+        sortList: function(e){
+            var sortBy = $(e.target).text().toLowerCase();
+            this.collection.sortItems(sortBy);
         },
 
         initialize: function(){
@@ -22,7 +28,7 @@
             this.listenToOnce(this.collection, 'sync', function(){
                 this.render();
             });
-            this.listenTo(this.collection, 'destroy add', function(){
+            this.listenTo(this.collection, 'destroy add sort', function(){
                 this.render();
             });
             this.collection.fetch();
@@ -84,7 +90,7 @@
             }
 
             if (e.which == 13) {
-                view.commentsDialog.dialog({show: true, title: view.getSelectedItem(view)});
+                view.commentsDialog.dialog({show: true, title: view.getSelectedItem(view).get('name')});
 
                 return false;
             }
@@ -101,6 +107,7 @@
         },
 
         render: function(){
+            console.log("inside render");
             $('#master-list-body').empty();
             var coll = this.collection;
             this.collection.each(function (item){

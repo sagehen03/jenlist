@@ -11,11 +11,11 @@
           'click #add-item': 'addItemToMasterList'
         },
 
-        addItemToMasterList: function(){
+        addItemToMasterList: function(e){
             this.attributes.masterListColl.create({name: $('#new-master-item').val(),
                 category: $('#categories').find(':selected').text()});
             $('#new-master-item').val('');
-
+            e.preventDefault();
         },
 
         initialize: function(){
