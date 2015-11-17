@@ -2,20 +2,16 @@
     'use strict';
     var Backbone = require("backbone");
     var env = require('../env');
-    var ListItem = require('../models/target-list-item')
-    module.exports = Backbone.Collection.extend({
+    var ListItem = require('../models/target-list-item');
+    var BaseList = require('./base-list');
+    module.exports = BaseList.extend({
         model: ListItem,
 
         selectedListId: null,
 
-        comparator: function(item){
-            return [item.get('category'), item.get('name')];
-        },
-
         initialize: function(){
             this.listenTo(Backbone, "masterListChanged", this.updateList);
             this.listenTo(Backbone, "addItemToTarget", this.newItem);
-            //this.listenTo(this.selectedList, 'change:id', this.updateUrl)
         },
 
         newItem: function(data){

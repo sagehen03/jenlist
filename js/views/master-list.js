@@ -107,7 +107,6 @@
         },
 
         render: function(){
-            console.log("inside render");
             $('#master-list-body').empty();
             var coll = this.collection;
             this.collection.each(function (item){

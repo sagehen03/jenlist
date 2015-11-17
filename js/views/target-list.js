@@ -9,9 +9,18 @@
 
         el: $('#target-list-area'),
 
+        events: {
+            'click th.sort': 'sortList'
+        },
+
         initialize: function () {
             this.listenTo(this.collection, 'change:selectedListId', this.render);
-            this.listenTo(this.collection, 'add remove', this.render);
+            this.listenTo(this.collection, 'add remove sort', this.render);
+        },
+
+        sortList: function(e){
+            var sortBy = $(e.target).text().toLowerCase();
+            this.collection.sortItems(sortBy);
         },
 
         render: function () {
