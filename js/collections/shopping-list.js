@@ -2,7 +2,7 @@
     'use strict';
     var Backbone = require("backbone");
     var env = require('../env');
-    var ListItem = require('../models/target-list-item');
+    var ListItem = require('../models/shopping-list-item');
     var BaseList = require('./base-list');
     module.exports = BaseList.extend({
         model: ListItem,

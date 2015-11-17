@@ -12,8 +12,8 @@ module.exports = Backbone.View.extend({
     },
 
     masterListChanged: function() {
-        var choosenListId = this.$el.val();
-        Backbone.trigger("masterListChanged", {"selectedListId": choosenListId});
+        var chosenListId = this.$el.val();
+        Backbone.trigger("masterListChanged", {"selectedListId": chosenListId});
     },
 
     initialize: function() {

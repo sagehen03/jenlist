@@ -2,7 +2,7 @@
     'use strict';
     var Backbone = require("backbone");
     var $ = require('jquery');
-    var TLItem = require('./target-list-item');
+    var TLItem = require('./shopping-list-item');
     require('jquery-ui');
 
     module.exports = Backbone.View.extend({
