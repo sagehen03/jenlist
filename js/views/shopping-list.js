@@ -7,7 +7,7 @@
 
     module.exports = Backbone.View.extend({
 
-        el: $('#target-list-area'),
+        el: $('#shopping-list-area'),
 
         events: {
             'click th.sort': 'sortList'
@@ -24,11 +24,11 @@
         },
 
         render: function () {
-            this.$('#target-list-body').empty();
+            this.$('#shopping-list-body').empty();
             this.collection.each(function (item) {
                 var tlItem = new TLItem({model: item});
                 tlItem.render();
-                this.$('#target-list-body').append(tlItem.el);
+                this.$('#shopping-list-body').append(tlItem.el);
             }, this);
         }
     });
