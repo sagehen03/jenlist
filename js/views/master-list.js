@@ -3,6 +3,7 @@
     var Backbone = require("backbone");
     var Item = require('./master-list-item');
     var $ = require('jquery');
+    var _ = require('underscore');
     require('jquery-ui');
 
     module.exports = Backbone.View.extend({
@@ -32,24 +33,27 @@
                 this.render();
             });
             this.collection.fetch();
-            var itemCommentsInput = $('#itemComments');
-            $(document).on('keydown', {view: this}, this.keydown);
-            itemCommentsInput.on('keydown', {view: this, selectedItem: this.getSelectedItem},
-                function(e){
-                    var view = e.data.view;
-                    if(e.which == 13){
-                        var itemToAdd = e.data.selectedItem(view);
-                        Backbone.trigger("addItemToTarget", {"name":  itemToAdd.get('name'), "category": itemToAdd.get('category'),
-                             "comments": itemCommentsInput.val()});
-                        itemCommentsInput.val('');
-                        view.commentsDialog.dialog('close');
-                        return false;
-                    }
-            });
+            this.itemCommentsInput = $('#itemComments');
+            _.bindAll(this, 'keydown');
+            $(document).on('keydown', this.keydown);
+            _.bindAll(this, 'keyDownInDialog');
+            this.itemCommentsInput.on('keydown', this.keyDownInDialog);
         },
 
-        getSelectedItem: function(view){
-            return view.collection.find(function (i) {
+        keyDownInDialog: function(e){
+            if(e.which == 13){
+                var itemToAdd = this.getSelectedItem();
+                Backbone.trigger("addItemToTarget", {"name":  itemToAdd.get('name'),
+                    "category": itemToAdd.get('category'),
+                    "comments": this.itemCommentsInput.val()});
+                this.itemCommentsInput.val('');
+                this.commentsDialog.dialog('close');
+                return false;
+            }
+        },
+
+        getSelectedItem: function(){
+            return this.collection.find(function (i) {
                 return i.get('selected');
             });
         },
@@ -71,13 +75,12 @@
         },
 
         keydown: function(e){
-            var view = e.data.view;
 
-            if ( !view.selected ){
+            if ( !this.selected ){
                 return;
             }
 
-            var collection = view.collection;
+            var collection = this.collection;
 
             if( e.which == 40 ) {
                 collection.selectedItem++;
@@ -90,8 +93,7 @@
             }
 
             if (e.which == 13) {
-                view.commentsDialog.dialog({show: true, title: view.getSelectedItem(view).get('name')});
-
+                this.commentsDialog.dialog({show: true, title: this.getSelectedItem().get('name')});
                 return false;
             }
 
@@ -108,9 +110,8 @@
 
         render: function(){
             $('#master-list-body').empty();
-            var coll = this.collection;
             this.collection.each(function (item){
-                var item2 = new Item({model: item, collection: coll}).render();
+                var item2 = new Item({model: item, collection: this.collection}).render();
                 this.$('#master-list-body').append(item2.el);
             }, this);
         }
