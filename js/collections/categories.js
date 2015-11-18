@@ -1,9 +1,10 @@
 (function(){
     'use strict';
     var Backbone = require("backbone");
-    var Category = require('../models/category')
+    var Category = require('../models/category');
+    var env = require('../env')
     module.exports = Backbone.Collection.extend({
         model: Category,
-        url: 'http://localhost:8092/jenlist/categories'
+        url: env.API_BASE + '/categories'
     });
 })();
