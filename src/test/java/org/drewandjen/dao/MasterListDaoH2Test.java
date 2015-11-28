@@ -35,23 +35,23 @@ public class MasterListDaoH2Test {
         for (MasterListItem masterListItem : masterListItems) {
             LOG.info("{}", masterListItem);
         }
-        assertThat(masterListItems, containsInAnyOrder(new MasterListItem(1, "Tomatoes"),
-                new MasterListItem(2, "Green Beans"), new MasterListItem(3, "Dog Treats")));
+        assertThat(masterListItems, containsInAnyOrder(new MasterListItem(1, "Tomatoes", "Produce"),
+                new MasterListItem(2, "Green Beans", "Produce"), new MasterListItem(3, "Dog Treats", "Tenna")));
     }
 
     @Test
     public void testSaveNewItem(){
-        dao.save(new MasterListItem(4, "Razor Blades"));
+        dao.save(new MasterListItem(4, "Razor Blades", "Cosmetics"));
         List<MasterListItem> items = dao.fetchAll();
-        assertThat(items, containsInAnyOrder(new MasterListItem(1, "Tomatoes"),
-                new MasterListItem(2, "Green Beans"), new MasterListItem(3, "Dog Treats"),
-                new MasterListItem(4, "Razor Blades")));
+        assertThat(items, containsInAnyOrder(new MasterListItem(1, "Tomatoes", "Produce"),
+                new MasterListItem(2, "Green Beans", "Produce"), new MasterListItem(3, "Dog Treats", "Tenna"),
+                new MasterListItem(4, "Razor Blades", "Cosmetics")));
     }
 
     @Test
     public void testDeleteItem(){
         List<MasterListItem> initialItems = dao.fetchAll();
-        dao.delete(new MasterListItem(1, "Tomatoes"));
+        dao.delete(new MasterListItem(1, "Tomatoes", "Produce"));
         List<MasterListItem> remainingItems = dao.fetchAll();
         assertTrue(remainingItems.size() == initialItems.size()-1);
     }

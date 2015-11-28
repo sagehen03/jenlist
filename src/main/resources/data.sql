@@ -51,4 +51,11 @@ insert into shopping_list_item(shopping_list_id, name, comment, completed, categ
 insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
   (1, 'Green Beans', 'half pound', false, 'Produce', CURRENT_TIMESTAMP());
 insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
-(2, 'Avocadoes', 'Haas', false, 'Produce', CURRENT_TIMESTAMP())
+(2, 'Avocadoes', 'Haas', false, 'Produce', CURRENT_TIMESTAMP());
+
+INSERT INTO users(username,password,enabled)
+VALUES ('mkyong','$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', true);
+
+INSERT INTO authorities (username, authority) VALUES ('mkyong', 'ROLE_USER');
+
+INSERT INTO authorities (username, authority) VALUES ('mkyong', 'ROLE_ADMIN');
