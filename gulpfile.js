@@ -30,5 +30,5 @@ function bundle() {
         .pipe(source('bundle.js'))
         // optional, remove if you dont want sourcemaps
         // Add transformation tasks to the pipeline here.
-        .pipe(gulp.dest('./build'));
+        .pipe(gulp.dest('./src/main/resources/static/js'));
 }
