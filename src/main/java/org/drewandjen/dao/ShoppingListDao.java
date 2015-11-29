@@ -2,7 +2,6 @@ package org.drewandjen.dao;
 
 import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -17,11 +16,11 @@ public interface ShoppingListDao {
 
     ShoppingListItem getItemById(int id);
 
-    List<ShoppingList> fetchAllShoppingLists();
+    List<ShoppingList> fetchAllShoppingLists(Integer userId);
 
-    void saveShopingList(String shoppingListName);
+    void saveShopingList(String shoppingListName, Integer userId);
 
-    void deleteShoppingListItem(int itemId);
+    void deleteShoppingListItem(int id, Integer userId);
 
-    void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate);
+    void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate, Integer userId);
 }

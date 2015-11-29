@@ -1,6 +1,7 @@
 package org.drewandjen.config;
 
 import org.drewandjen.dao.*;
+import org.drewandjen.model.UserInfoCache;
 import org.drewandjen.web.CategoryController;
 import org.drewandjen.web.ShoppingListController;
 import org.drewandjen.web.MasterListController;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -87,13 +89,23 @@ public class WebRunner {
     }
 
     @Bean
+    public UserDao userDao(){
+        return new UserDaoH2(getTemplate());
+    }
+
+    @Bean
+    public UserInfoCache userInfoCache(){
+        return new UserInfoCache(userDao());
+    }
+
+    @Bean
     public ShoppingListController listController() {
-        return new ShoppingListController(shoppingListDao());
+        return new ShoppingListController(shoppingListDao(), userInfoCache());
     }
 
     @Bean
     public MasterListController masterListController() {
-        return new MasterListController(masterListDao());
+        return new MasterListController(masterListDao(), userInfoCache());
     }
 
     @Bean

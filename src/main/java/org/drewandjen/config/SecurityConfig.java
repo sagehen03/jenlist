@@ -39,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().httpBasic()
-                .and().rememberMe().rememberMeServices(rememberServices())
                 .and().csrf().disable();
     }
 
@@ -48,11 +47,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public RememberMeServices rememberServices(){
-        TokenBasedRememberMeServices service = new TokenBasedRememberMeServices("jenlist", userDetailsService());
-        service.setAlwaysRemember(true);
-        service.setTokenValiditySeconds(60*60*24*365);
-        return service;
-    }
 }
