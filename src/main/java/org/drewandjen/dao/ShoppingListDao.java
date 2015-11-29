@@ -20,7 +20,7 @@ public interface ShoppingListDao {
 
     void saveShopingList(String shoppingListName, Integer userId);
 
-    void deleteShoppingListItem(int id, Integer userId);
+    void deleteShoppingListItem(int id);
 
     void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate, Integer userId);
 }

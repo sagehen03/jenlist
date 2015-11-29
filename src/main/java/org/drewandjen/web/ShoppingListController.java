@@ -66,8 +66,7 @@ public class ShoppingListController {
 
     @RequestMapping(value = "/shopping-list/{listId}/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<String> deleteItem(@PathVariable Integer listId, @PathVariable Integer id){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        dao.deleteShoppingListItem(id, userInfoCache.getUserId(authentication.getName()));
+        dao.deleteShoppingListItem(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

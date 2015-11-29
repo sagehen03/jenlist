@@ -60,8 +60,8 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     }
 
     @Override
-    public void deleteShoppingListItem(int id, Integer userId) {
-        template.update("delete from shopping_list_item where id = ? and user_id = ?", id, userId);
+    public void deleteShoppingListItem(int id) {
+        template.update("delete from shopping_list_item where id = ?", id);
     }
 
     @Override
