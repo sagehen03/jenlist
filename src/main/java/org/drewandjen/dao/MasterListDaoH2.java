@@ -32,6 +32,6 @@ public class MasterListDaoH2 implements MasterListDao {
 
     @Override
     public void delete(MasterListItem itemToDelete, Integer userId) {
-        template.update("delete from master_list where id = ? and user_id", itemToDelete.getId(), userId);
+        template.update("delete from master_list where id = ? and user_id = ?", itemToDelete.getId(), userId);
     }
 }

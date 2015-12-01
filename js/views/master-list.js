@@ -63,11 +63,16 @@
         },
 
         _losefocus: function (e) {
-            if(e.relatedTarget == $('#itemComments')[0]){
-                return;
+            var relatedTarget = e.relatedTarget || document.activeElement;
+            if(relatedTarget != $('#itemComments')[0] ){
+                var that = this;
+                setTimeout(function(){
+                    if(document.activeElement != $('#itemComments')[0]){
+                        that.selected = false;
+                        that.collection.clearSelection();
+                    }
+                }, 1);
             }
-            this.selected = false;
-            this.collection.clearSelection();
         },
 
         _setfocus: function(){
