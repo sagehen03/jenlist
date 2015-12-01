@@ -18,6 +18,14 @@
             color: #68251d;
         }
 
+        #add-item-area{
+            display: none;
+        }
+
+        #master-list-controls{
+            padding: 10px;
+        }
+
 
     </style>
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
@@ -33,6 +41,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-6">
+                <div id="master-list-controls">
+                    <a href="#" id="add-new-item" title="Add New Item"><span class="glyphicon glyphicon-plus"></span></a>
+                    <a href="#" id="filter-items" title="Filter List"><span class="glyphicon glyphicon-filter"></span></a>
+                </div>
                 <div id="add-item-area">
                     <form>
                         <div class="form-group">
