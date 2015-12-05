@@ -18,7 +18,7 @@ public interface ShoppingListDao {
 
     List<ShoppingList> fetchAllShoppingLists(Integer userId);
 
-    void saveShopingList(String shoppingListName, Integer userId);
+    ShoppingList saveShopingList(String shoppingListName, Integer userId);
 
     void deleteShoppingListItem(int id);
 

@@ -11,11 +11,7 @@
 
         initialize: function(){
             this.listenTo(Backbone, "masterListChanged", this.updateList);
-            this.listenTo(Backbone, "addItemToTarget", this.newItem);
-        },
-
-        newItem: function(data){
-          this.create(data);
+            this.listenTo(Backbone, "addItemToTarget", this.create);
         },
 
         updateList: function(e){
@@ -28,7 +24,7 @@
         },
 
         updateUrl: function(){
-            this.url = env.API_BASE + '/shopping-list/' + this.selectedListId;
+            this.url = env.API_BASE + '/shopping-list-items/' + this.selectedListId;
         }
 
     });

@@ -18,7 +18,6 @@ $( function (){
     var listCollection = new ListCollection();
     new ShoppingListView({collection: new ShoppingListCollection()});
     var tView = new ShoppingListSelectorView({collection: listCollection});
-    tView.render();
     var masterList = new MasterList();
     var view = new MlView({collection: masterList});
     new MasterListControls();

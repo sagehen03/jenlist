@@ -5,7 +5,13 @@ import org.drewandjen.model.ShoppingListItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,8 +61,20 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     }
 
     @Override
-    public void saveShopingList(String shoppingListName, Integer userId) {
-        template.update("insert into shopping_list(name, user_id, created_at) values(?, ?, CURRENT_TIMESTAMP())", shoppingListName, userId);
+    public ShoppingList saveShopingList(String shoppingListName, Integer userId) {
+        PreparedStatementCreator creator = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement preparedStatement = connection.prepareStatement("insert into shopping_list(name, user_id, created_at) " +
+                        "values(?, ?, CURRENT_TIMESTAMP())");
+                preparedStatement.setString(1, shoppingListName);
+                preparedStatement.setInt(2, userId);
+                return preparedStatement;
+            }
+        };
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        template.update(creator, generatedKeyHolder);
+        return new ShoppingList(generatedKeyHolder.getKey().intValue(), shoppingListName, new Date());
     }
 
     @Override

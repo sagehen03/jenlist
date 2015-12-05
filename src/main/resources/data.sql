@@ -51,7 +51,7 @@ insert into master_list(name, category, created_at, user_id) values('Napa Cabbag
 insert into master_list(name, category, created_at, user_id) values('Escarole', 'Produce', CURRENT_TIMESTAMP(), 2);
 
 insert into shopping_list(name, created_at, user_id) values('Whole Foods List', CURRENT_TIMESTAMP(), 1);
-insert into shopping_list(name, created_at, user_id) values('Trader Joe''s List', CURRENT_TIMESTAMP(), 2);
+insert into shopping_list(name, created_at, user_id) values('Trader Joe''s List', CURRENT_TIMESTAMP(), 1);
 
 insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) values
   (1, 'Tomatoes', '3', false, 'Produce', CURRENT_TIMESTAMP());

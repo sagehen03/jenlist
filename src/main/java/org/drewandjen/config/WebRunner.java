@@ -5,6 +5,7 @@ import org.drewandjen.model.UserInfoCache;
 import org.drewandjen.web.CategoryController;
 import org.drewandjen.web.MasterListController;
 import org.drewandjen.web.ShoppingListController;
+import org.drewandjen.web.ShoppingListItemController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -83,7 +84,12 @@ public class WebRunner {
     }
 
     @Bean
-    public ShoppingListController listController() {
+    public ShoppingListItemController listItemController() {
+        return new ShoppingListItemController(shoppingListDao(), userInfoCache());
+    }
+
+    @Bean
+    public ShoppingListController listController(){
         return new ShoppingListController(shoppingListDao(), userInfoCache());
     }
 
