@@ -4,7 +4,6 @@
     var Item = require('./master-list-item');
     var $ = require('jquery');
     var _ = require('underscore');
-    require('jquery-ui');
 
     module.exports = Backbone.View.extend({
 
@@ -12,10 +11,13 @@
 
         selected: false,
 
+        closingModal: false,
+
         events: {
           'focus' : '_setfocus',
           'focusout' : '_losefocus',
-          'click th.sort' : 'sortList'
+          'click th.sort' : 'sortList',
+          'blur #add-list-item-modal' : '_setfocus'
         },
 
         sortList: function(e){
@@ -25,7 +27,6 @@
 
         initialize: function(){
             this.selected = false;
-            this.commentsDialog = $('#dialog');
             this.listenToOnce(this.collection, 'sync', function(){
                 this.render();
             });
@@ -34,6 +35,14 @@
             });
             this.collection.fetch();
             this.itemCommentsInput = $('#itemComments');
+            var that = this;
+            $('#add-list-item-modal').on('shown.bs.modal', function () {
+                $('#add-list-item-modal-title').html(that.getSelectedItem().get('name'));
+                $('#itemComments').focus();
+            });
+            $('#add-list-item-modal').on('hide.bs.modal', function(e){
+                that.closingModal = true;
+            });
             _.bindAll(this, 'keydown');
             $(document).on('keydown', this.keydown);
             _.bindAll(this, 'keyDownInDialog');
@@ -42,14 +51,18 @@
 
         keyDownInDialog: function(e){
             if(e.which == 13){
-                var itemToAdd = this.getSelectedItem();
-                Backbone.trigger("addItemToTarget", {"name":  itemToAdd.get('name'),
-                    "category": itemToAdd.get('category'),
-                    "comments": this.itemCommentsInput.val()});
-                this.itemCommentsInput.val('');
-                this.commentsDialog.dialog('close');
+                this.addItemToList();
                 return false;
             }
+        },
+
+        addItemToList: function(){
+            var itemToAdd = this.getSelectedItem();
+            Backbone.trigger("addItemToTarget", {"name":  itemToAdd.get('name'),
+                "category": itemToAdd.get('category'),
+                "comments": this.itemCommentsInput.val()});
+            this.itemCommentsInput.val('');
+            $('#add-list-item-modal').modal('hide');
         },
 
         getSelectedItem: function(){
@@ -63,8 +76,13 @@
         },
 
         _losefocus: function (e) {
+            if(this.closingModal){
+                this.closingModal = false;
+                e.stopPropagation();
+                return;
+            }
             var relatedTarget = e.relatedTarget || document.activeElement;
-            if(relatedTarget != $('#itemComments')[0] ){
+            if(relatedTarget && relatedTarget != $('#itemComments')[0] && relatedTarget != $('#add-list-item-modal')[0]){
                 var that = this;
                 setTimeout(function(){
                     if(document.activeElement != $('#itemComments')[0]){
@@ -98,7 +116,7 @@
             }
 
             if (e.which == 13) {
-                this.commentsDialog.dialog({show: true, title: this.getSelectedItem().get('name')});
+                $('#add-list-item-modal').modal('show');
                 return false;
             }
 
