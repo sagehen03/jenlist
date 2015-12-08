@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface MasterListDao {
 
-    List<MasterListItem> fetchAll();
+    List<MasterListItem> fetchAll(Integer userId);
 
-    void save(MasterListItem newItem);
+    void save(MasterListItem newItem, Integer userId);
 
-    void delete(MasterListItem itemToDelete);
+    void delete(MasterListItem itemToDelete, Integer userId);
 }

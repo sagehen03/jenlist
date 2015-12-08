@@ -1,29 +1,42 @@
-var Backbone = require('backbone');
-var _ = require('underscore');
+(function(){
+    'use strict';
+    var Backbone = require("backbone");
+    var _ = require('underscore');
+    var template = _.template(
+        '<td><%= name%></td><td><%= category %></td><td><a href="#" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>'
+    );
+    module.exports = Backbone.View.extend({
+        events: {
+            'click': 'click',
+            'click a.delete': 'removeItem'
+        },
 
+        template: template,
+        tagName: 'tr',
 
-var MasterListItemView = Backbone.View.extend({
-    tagName:  'li',
-    className: 'list-item',
-    template: require('./templates/list-item.jade'),
+        removeItem: function(){
+          this.model.destroy();
+        },
 
-    events: {
-        'click .remove': 'removeItem',
-        'change input': 'select'
-    },
+        click: function(){
+            this.collection.clearSelection();
+            this.model.set('selected', true);
+            for(var i=0; i<this.collection.models.length; i++){
+                if(this.collection.models[i] == this.model){
+                    break;
+                }
+            }
+            this.collection.selectedItem = i;
+        },
 
-    removeItem: function(){
-        console.log("inside remove item for " + this.model.toJSON());
-        this.model.destroy();
-    },
+        render: function(){
+            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.toggleClass('selected', this.model.get('selected'));
+            return this;
+        },
 
-    select: function() {
-        this.model.set('selected', this.$('input').prop('checked'));
-    },
-
-    render: function () {
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    }
-});
-module.exports = MasterListItemView;
+        initialize: function(){
+            this.listenTo(this.model, 'change:selected', this.render);
+        }
+    });
+})();

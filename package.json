@@ -4,9 +4,10 @@
   "description": "New listy app",
   "main": "index.js",
   "dependencies": {
-    "underscore": "^1.8.3",
     "backbone": "^1.2.2",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "browserify": "^11.0.1",

@@ -1,16 +1,18 @@
 package org.drewandjen.config;
 
 import org.drewandjen.dao.*;
-import org.drewandjen.web.ShoppingListController;
+import org.drewandjen.model.UserInfoCache;
+import org.drewandjen.web.CategoryController;
 import org.drewandjen.web.MasterListController;
-import org.drewandjen.web.SimpleCorsFilter;
+import org.drewandjen.web.ShoppingListController;
+import org.drewandjen.web.ShoppingListItemController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -18,13 +20,13 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.sql.DataSource;
-import java.util.Collections;
 
 /**
  * Created by dhite on 8/24/15.
  */
 @Configuration
 @EnableAutoConfiguration
+@Import(SecurityConfig.class)
 public class WebRunner {
 
     @Bean
@@ -34,20 +36,14 @@ public class WebRunner {
     }
 
     @Bean
-    public ShoppingListDao shoppingListDao() {
-        return new ShoppingListDaoH2(getTemplate());
+    public CategoryDao categoryDao(){
+        return new CategoryDaoH2(getTemplate());
     }
 
     @Bean
-    public FilterRegistrationBean corsFilter() {
-        SimpleCorsFilter filter = new SimpleCorsFilter();
-        FilterRegistrationBean result = new FilterRegistrationBean();
-        result.setFilter(filter);
-        result.setName("cors");
-        result.setUrlPatterns(Collections.singletonList("/*"));
-        return result;
+    public ShoppingListDao shoppingListDao() {
+        return new ShoppingListDaoH2(getTemplate());
     }
-
 
     @Bean
     public MasterListDao masterListDao() {
@@ -78,13 +74,33 @@ public class WebRunner {
     }
 
     @Bean
-    public ShoppingListController listController() {
-        return new ShoppingListController(shoppingListDao());
+    public UserDao userDao(){
+        return new UserDaoH2(getTemplate());
+    }
+
+    @Bean
+    public UserInfoCache userInfoCache(){
+        return new UserInfoCache(userDao());
+    }
+
+    @Bean
+    public ShoppingListItemController listItemController() {
+        return new ShoppingListItemController(shoppingListDao(), userInfoCache());
+    }
+
+    @Bean
+    public ShoppingListController listController(){
+        return new ShoppingListController(shoppingListDao(), userInfoCache());
     }
 
     @Bean
     public MasterListController masterListController() {
-        return new MasterListController(masterListDao());
+        return new MasterListController(masterListDao(), userInfoCache());
+    }
+
+    @Bean
+    public CategoryController categoryController(){
+        return new CategoryController(categoryDao());
     }
 
     public static void main(String[] args) {

@@ -39,7 +39,7 @@ public class ShoppingListDaoH2Test {
     public void testSave(){
         List<ShoppingListItem> existingItems = dao.fetchAll(1);
         int prevSize = existingItems.size();
-        dao.save(new ShoppingListItem("Razor blades", "Schick", null, false, 1, 0));
+        dao.save(new ShoppingListItem("Razor blades", "Schick", null, false, 1, 0, "Cosmetics"));
         assertTrue(dao.fetchAll(1).size() == prevSize+1);
     }
 }

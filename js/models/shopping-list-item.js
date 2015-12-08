@@ -1,13 +1,14 @@
 (function(){
     'use strict';
     var Backbone = require("backbone");
-    var ListItem = Backbone.Model.extend({
+    module.exports = Backbone.Model.extend({
         defaults: {
             name: "",
             comments: "",
+            shoppingListId: 0,
+            category: "",
             dateAdded: "",
             completed: false
         }
     });
-    module.exports = ListItem;
 })();

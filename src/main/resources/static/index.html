@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .selected {
+            font-weight: bold;
+        }
+
+        :focus {
+            outline: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+        }
+
+        .delete {
+            color: #68251d;
+        }
+
+        #add-item-area{
+            display: none;
+        }
+
+        #filter-master-list-area{
+            display: none;
+        }
+
+        #master-list-controls{
+            padding: 10px;
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <title>Shopping List</title>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <div id="master-list-controls">
+                    <a href="#" id="add-new-item" title="Add New Item"><span class="glyphicon glyphicon-plus"></span></a>
+                    <a href="#" id="filter-items" title="Filter List"><span class="glyphicon glyphicon-filter"></span></a>
+                </div>
+                <div id="filter-master-list-area">
+                    <form>
+                        <div class="form-group">
+                        <label for="filter-text">Filter Items:</label>
+                            <input type="text" id="filter-text" class="form-control"/>
+                        </div>
+                    </form>
+                </div>
+                <div id="add-item-area">
+                    <form>
+                        <div class="form-group">
+                            <label for="new-master-item">New Item:</label>
+                            <input type="text" id="new-master-item" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Category:</label>
+                            <select id="categories" class="form-control">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button id="add-item" class="btn-default">Add Item</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="master-list-area" tabindex="1" style="max-height: 500px; overflow-y: scroll">
+                    <div class="modal" id="add-list-item-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h4 class="modal-title" id="add-list-item-modal-title">Title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="new-shopping-list">Comment:</label>
+                                            <input type="text" id="itemComments" class="form-control">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="master-list" class="table table-striped table-hover">
+                        <thead>
+                            <tr><th class="sort">Name</th><th class="sort">Category</th><th></th></tr>
+                        </thead>
+                        <tbody id="master-list-body">
+
+                         </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="col-xs-6">
+                <form id="new-list-form">
+                    <div class="form-group">
+
+                        <div id="shopping-list-selector" tabindex="2">
+                            <label for="shoppingLists">Shopping List:</label>
+                            <select id="shoppingLists" class="form-control"></select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn-default" id="show-add-list">
+                            Add List
+                        </button>
+                    </div>
+
+                    <div class="modal fade" id="add-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Add New Shopping List</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="new-shopping-list">Shopping List Name:</label>
+                                            <input type="text" id="new-shopping-list" class="form-control">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="add-new-list-btn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                    <div id="shopping-list-area" tabindex="3">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr><th class="sort">Name</th><th class="sort">Category</th><th></th></tr>
+                            </thead>
+                            <tbody id="shopping-list-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/bundle.js"></script>
+</head>
+</html>

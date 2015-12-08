@@ -31,28 +31,28 @@ public class MasterListDaoH2Test {
 
     @Test
     public void testFetchAll() throws Exception {
-        List<MasterListItem> masterListItems = dao.fetchAll();
+        List<MasterListItem> masterListItems = dao.fetchAll(1);
         for (MasterListItem masterListItem : masterListItems) {
             LOG.info("{}", masterListItem);
         }
-        assertThat(masterListItems, containsInAnyOrder(new MasterListItem(1, "Tomatoes"),
-                new MasterListItem(2, "Green Beans"), new MasterListItem(3, "Dog Treats")));
+        assertThat(masterListItems, containsInAnyOrder(new MasterListItem(1, "Tomatoes", "Produce"),
+                new MasterListItem(2, "Green Beans", "Produce"), new MasterListItem(3, "Dog Treats", "Tenna")));
     }
 
     @Test
     public void testSaveNewItem(){
-        dao.save(new MasterListItem(4, "Razor Blades"));
-        List<MasterListItem> items = dao.fetchAll();
-        assertThat(items, containsInAnyOrder(new MasterListItem(1, "Tomatoes"),
-                new MasterListItem(2, "Green Beans"), new MasterListItem(3, "Dog Treats"),
-                new MasterListItem(4, "Razor Blades")));
+        dao.save(new MasterListItem(4, "Razor Blades", "Cosmetics"), 1);
+        List<MasterListItem> items = dao.fetchAll(1);
+        assertThat(items, containsInAnyOrder(new MasterListItem(1, "Tomatoes", "Produce"),
+                new MasterListItem(2, "Green Beans", "Produce"), new MasterListItem(3, "Dog Treats", "Tenna"),
+                new MasterListItem(4, "Razor Blades", "Cosmetics")));
     }
 
     @Test
     public void testDeleteItem(){
-        List<MasterListItem> initialItems = dao.fetchAll();
-        dao.delete(new MasterListItem(1, "Tomatoes"));
-        List<MasterListItem> remainingItems = dao.fetchAll();
+        List<MasterListItem> initialItems = dao.fetchAll(1);
+        dao.delete(new MasterListItem(1, "Tomatoes", "Produce"), 1);
+        List<MasterListItem> remainingItems = dao.fetchAll(1);
         assertTrue(remainingItems.size() == initialItems.size()-1);
     }
 }
