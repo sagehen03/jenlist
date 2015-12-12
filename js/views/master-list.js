@@ -40,7 +40,7 @@
                 $('#add-list-item-modal-title').html(that.getSelectedItem().get('name'));
                 $('#itemComments').focus();
             });
-            $('#add-list-item-modal').on('hide.bs.modal', function(e){
+            $('#add-list-item-modal').on('hide.bs.modal', function(){
                 that.closingModal = true;
             });
             _.bindAll(this, 'keydown');
@@ -113,7 +113,12 @@
                 var item = collection.at(collection.selectedItem);
                 collection.clearSelection();
                 item.set('selected', true);
-                console.log($('#master-list tr.selected').position());
+                if(collection.selectedItem == 0){
+                    $('#master-list-area').scrollTop(0);
+                } else {
+                    $('#master-list-area').scrollTop($('#master-list-area').scrollTop() + 37);
+                }
+                return false;
             }
 
             if (e.which == 13) {
@@ -123,12 +128,18 @@
 
             if ( e.which == 38 ){
                 collection.selectedItem--;
-                if( !collection.at( collection.selectedItem ) ){
+                if( collection.selectedItem < 0 ){
                     collection.selectedItem = collection.size() - 1;
                 }
                 var item = collection.at(collection.selectedItem);
                 collection.clearSelection();
                 item.set('selected', true);
+                if(collection.selectedItem == collection.size() - 1){
+                    $('#master-list-area').scrollTop(630);
+                } else {
+                    $('#master-list-area').scrollTop($('#master-list-area').scrollTop() - 37);
+                }
+                return false;
             }
         },
 

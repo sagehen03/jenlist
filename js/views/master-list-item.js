@@ -2,12 +2,13 @@
     'use strict';
     var Backbone = require("backbone");
     var _ = require('underscore');
+    var $ = require('jquery');
     var template = _.template(
         '<td><%= name%></td><td><%= category %></td><td><a href="#" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>'
     );
     module.exports = Backbone.View.extend({
         events: {
-            'click': 'click',
+            'dblclick': 'dblClick',
             'click a.delete': 'removeItem'
         },
 
@@ -18,7 +19,7 @@
           this.model.destroy();
         },
 
-        click: function(){
+        dblClick: function(){
             this.collection.clearSelection();
             this.model.set('selected', true);
             for(var i=0; i<this.collection.models.length; i++){
@@ -27,6 +28,7 @@
                 }
             }
             this.collection.selectedItem = i;
+            $('#add-list-item-modal').modal('show');
         },
 
         render: function(){
