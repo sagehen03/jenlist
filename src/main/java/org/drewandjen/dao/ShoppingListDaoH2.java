@@ -6,10 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +31,21 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     }
 
     @Override
+    public List<ShoppingList> getShoppingListByOwner(int ownerId){
+        return template.query("select id, name, created_at from shopping_list where user_id = ?", (rs, rowNum) -> {
+            return new ShoppingList(rs.getInt("id"), rs.getString("name"), rs.getDate("created_at"));
+        }, ownerId);
+    }
+
+    @Override
+    public void updateShoppingListItemStatus(boolean completed, int itemId){
+        template.update("update shopping_list_item set completed = ? where id = ?", completed, itemId);
+    }
+
+    @Override
     public List<ShoppingListItem> fetchAll(int listId) {
-        LOG.info("Getting shopping list items");
         return template.query("SELECT shopping_list_id, id, name, comment, completed, created_at, category FROM shopping_list_item " +
-                        "where shopping_list_id = ? order by category",
+                        "where shopping_list_id = ? order by completed asc, category",
                 (rs, i) -> {
                     return new ShoppingListItem(rs.getString("name"),
                             rs.getString("comment"), rs.getDate("created_at"), rs.getBoolean("completed"),

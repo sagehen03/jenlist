@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface ShoppingListDao {
 
+    List<ShoppingList> getShoppingListByOwner(int ownerId);
+
+    void updateShoppingListItemStatus(boolean completed, int itemId);
+
     List<ShoppingListItem> fetchAll(int listId);
 
     void save(ShoppingListItem item);

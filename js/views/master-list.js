@@ -113,6 +113,7 @@
                 var item = collection.at(collection.selectedItem);
                 collection.clearSelection();
                 item.set('selected', true);
+                console.log($('#master-list tr.selected').position());
             }
 
             if (e.which == 13) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Hello Spring Boot!</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="js/list.js" />
+</head>
+<body>
+<div class="container">
+    <form id="shoppingListForm">
+        <div class="form-group">
+            <label for="shoppingLists">Shopping List:</label>
+            <select id="shoppingLists" class="form-control" name="listId">
+                <option th:each="list : ${shoppingLists}"
+                        th:attr="value=${list.id}"
+                        th:text="${list.name}"
+                        th:selected="(${list.id} == ${selectedList})"></option>
+            </select>
+        </div>
+    </form>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr><th></th><th class="sort">Name</th><th class="sort">Category</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${listItems}">
+                <td>
+                    <input type="checkbox" th:attr="id=${item.id}" th:checked="(${item.completed} == true)" ></input>
+                </td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.category}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
