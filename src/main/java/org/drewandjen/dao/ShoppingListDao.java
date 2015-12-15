@@ -18,8 +18,6 @@ public interface ShoppingListDao {
 
     void save(ShoppingListItem item);
 
-    ShoppingListItem getItemById(int id);
-
     List<ShoppingList> fetchAllShoppingLists(Integer userId);
 
     ShoppingList saveShopingList(String shoppingListName, Integer userId);

@@ -11,7 +11,8 @@
     }
 
     var afterItemUpdated = function(){
-       location.reload();
+       var newHref = location.href.replace(/(name|category)Sort=(desc|asc)/g, "");
+       location.href = newHref;
     };
 
     $(function(){

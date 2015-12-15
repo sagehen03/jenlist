@@ -1,5 +1,6 @@
 package org.drewandjen.dao;
 
+import org.apache.commons.lang3.StringUtils;
 import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
 import org.slf4j.Logger;
@@ -56,14 +57,12 @@ public class ShoppingListDaoH2 implements ShoppingListDao{
     @Override
     public void save(ShoppingListItem item) {
         LOG.info("Saving item {}", item);
+        if(StringUtils.isBlank(item.getComments())){
+            item.setComments(null);
+        }
         template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
                         "values (?,?,?,?,?,CURRENT_TIMESTAMP())",
                 item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted(), item.getCategory());
-    }
-
-    @Override
-    public ShoppingListItem getItemById(int id) {
-        return null;
     }
 
     @Override

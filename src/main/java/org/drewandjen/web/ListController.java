@@ -16,7 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by dhite on 12/7/15.
@@ -37,14 +40,14 @@ public class ListController {
 
     @RequestMapping("/updateItem")
     public ResponseEntity<String> updateItemStatus(@RequestParam int itemId, @RequestParam boolean completed){
-        LOG.info("Woot woot calling update item");
         dao.updateShoppingListItemStatus(completed, itemId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping("/list")
-    public String index(Model model, @RequestParam(required = false) String listId) {
-        LOG.info("The list id was {}", listId);
+    public String index(Model model, @RequestParam(required = false) String listId,
+                        @RequestParam(required =  false) String nameSort,
+                        @RequestParam(required = false) String categorySort) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<ShoppingList> shoppingLists = dao.getShoppingListByOwner(userInfoCache.getUserId(authentication.getName()));
         model.addAttribute("shoppingLists", shoppingLists);
@@ -56,9 +59,35 @@ public class ListController {
             items = dao.fetchAll(id);
             listId = String.valueOf(id);
         }
+        items = updateSortState(nameSort, categorySort, model, items);
         model.addAttribute("selectedList", listId);
         model.addAttribute("listItems", items);
         return "list";
     }
+
+    private List<ShoppingListItem> updateSortState(String nameSort, String categorySort, Model model, List<ShoppingListItem> items) {
+        model.addAttribute("categorySort", "list?categorySort=asc");
+        model.addAttribute("nameSort", "list?nameSort=asc");
+
+        if(StringUtils.isNotBlank(nameSort)){
+            sort(items, model, nameSort, Comparator.comparing(ShoppingListItem::getName), "nameSort");
+        }
+        else if(StringUtils.isNotBlank(categorySort)){
+            sort(items, model, categorySort, Comparator.comparing(ShoppingListItem::getCategory), "categorySort");
+        }
+
+        return items;
+    }
+
+    private void sort(List<ShoppingListItem> items, Model model, String sortDirection, Comparator comparator, String sortType){
+        if(sortDirection.equals("asc")){
+            Collections.sort(items, comparator);
+            model.addAttribute(sortType, "list?"+sortType+"=desc");
+        } else {
+            Collections.sort(items, comparator.reversed());
+            model.addAttribute(sortType, "list?"+sortType+"=asc");
+        }
+    }
+
 
 }

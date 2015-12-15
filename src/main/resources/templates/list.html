@@ -2,11 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Hello Spring Boot!</title>
+    <title>Jen List</title>
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/list.js" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 </head>
 <body>
 <div class="container">
@@ -24,15 +30,15 @@
 
     <table class="table table-striped table-hover">
         <thead>
-        <tr><th></th><th class="sort">Name</th><th class="sort">Category</th></tr>
+        <tr><th class="sort"><a th:href="${nameSort}">Name</a></th><th class="sort"><a th:href="${categorySort}"> Category</a></th></tr>
         </thead>
         <tbody>
             <tr th:each="item : ${listItems}">
                 <td>
-                    <input type="checkbox" th:attr="id=${item.id}" th:checked="(${item.completed} == true)" ></input>
+                    <input type="checkbox" th:class="${item.completed}? 'completed'" th:attr="id=${item.id}" th:checked="(${item.completed} == true)" ></input>
+                    <label th:attr="for=${item.id}" th:class="${item.completed}? 'completed'" th:text="${item.comments}? |${item.name} (${item.comments})| : ${item.name}"/>
                 </td>
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.category}"></td>
+                <td th:text="${item.category}" th:class="${item.completed}? 'completed'"></td>
             </tr>
         </tbody>
     </table>
