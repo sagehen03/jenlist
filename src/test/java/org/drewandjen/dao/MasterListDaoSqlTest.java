@@ -22,9 +22,9 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebRunner.class)
-public class MasterListDaoH2Test {
+public class MasterListDaoSqlTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MasterListDaoH2Test.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MasterListDaoSqlTest.class);
 
     @Autowired
     private MasterListDao dao;

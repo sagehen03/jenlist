@@ -19,9 +19,9 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebRunner.class)
-public class ShoppingListDaoH2Test {
+public class ShoppingListDaoSqlTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ShoppingListDaoH2Test.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShoppingListDaoSqlTest.class);
 
     @Autowired
     private ShoppingListDao dao;

@@ -1,12 +1,12 @@
-insert into categories(name, created_at) values ('Produce', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Bakery', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Cereal', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Dairy', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Crackers', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Baking', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Frozen Foods', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Butcher', CURRENT_TIMESTAMP());
-insert into categories(name, created_at) values ('Prepared Foods', CURRENT_TIMESTAMP());
+insert into categories(name, created_at) values ('Produce', current_timestamp);
+insert into categories(name, created_at) values ('Bakery', current_timestamp);
+insert into categories(name, created_at) values ('Cereal', current_timestamp);
+insert into categories(name, created_at) values ('Dairy', current_timestamp);
+insert into categories(name, created_at) values ('Crackers', current_timestamp);
+insert into categories(name, created_at) values ('Baking', current_timestamp);
+insert into categories(name, created_at) values ('Frozen Foods', current_timestamp);
+insert into categories(name, created_at) values ('Butcher', current_timestamp);
+insert into categories(name, created_at) values ('Prepared Foods', current_timestamp);
 
 INSERT INTO users(username,password,enabled)
 VALUES ('drew','$2a$10$tEelzEleqaGTC31hNZFKbeJu/SJIqBLzoO0NyWhmVce7lqLrNFQTe', true);

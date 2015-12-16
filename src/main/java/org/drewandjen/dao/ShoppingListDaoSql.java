@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +18,14 @@ import java.util.List;
 /**
  * Created by dhite on 8/30/15.
  */
-public class ShoppingListDaoH2 implements ShoppingListDao{
+public class ShoppingListDaoSql implements ShoppingListDao{
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(ShoppingListDaoH2.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShoppingListDaoSql.class);
 
     private JdbcTemplate template;
 
-    public ShoppingListDaoH2(JdbcTemplate template) {
+    public ShoppingListDaoSql(JdbcTemplate template) {
         this.template = template;
     }
 

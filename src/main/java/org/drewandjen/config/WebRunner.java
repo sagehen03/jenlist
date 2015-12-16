@@ -1,5 +1,6 @@
 package org.drewandjen.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.drewandjen.dao.*;
 import org.drewandjen.model.UserInfoCache;
 import org.drewandjen.web.*;
@@ -11,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -34,17 +33,17 @@ public class WebRunner {
 
     @Bean
     public CategoryDao categoryDao(){
-        return new CategoryDaoH2(getTemplate());
+        return new CategoryDaoSql(getTemplate());
     }
 
     @Bean
     public ShoppingListDao shoppingListDao() {
-        return new ShoppingListDaoH2(getTemplate());
+        return new ShoppingListDaoSql(getTemplate());
     }
 
     @Bean
     public MasterListDao masterListDao() {
-        return new MasterListDaoH2(getTemplate());
+        return new MasterListDaoSql(getTemplate());
     }
 
     @Bean
@@ -66,13 +65,18 @@ public class WebRunner {
 
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-                .addScript("classpath:schema.sql").addScript("classpath:data.sql").build();
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setUsername("jenlist");
+        dataSource.setPassword("jenlist");
+        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5433/jenlist");
+        dataSource.setMaximumPoolSize(5);
+        dataSource.setConnectionTestQuery("select 1");
+        return dataSource;
     }
 
     @Bean
     public UserDao userDao(){
-        return new UserDaoH2(getTemplate());
+        return new UserDaoSql(getTemplate());
     }
 
     @Bean

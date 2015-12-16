@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by dhite on 8/29/15.
  */
-public class MasterListDaoH2 implements MasterListDao {
+public class MasterListDaoSql implements MasterListDao {
 
     private JdbcTemplate template;
 
-    public MasterListDaoH2(JdbcTemplate template) {
+    public MasterListDaoSql(JdbcTemplate template) {
         this.template = template;
     }
 

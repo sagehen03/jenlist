@@ -8,17 +8,17 @@ import java.util.List;
 /**
  * Created by dhite on 11/12/15.
  */
-public class CategoryDaoH2 implements CategoryDao {
+public class CategoryDaoSql implements CategoryDao {
 
     private JdbcTemplate template;
 
-    public CategoryDaoH2(JdbcTemplate template) {
+    public CategoryDaoSql(JdbcTemplate template) {
         this.template = template;
     }
 
     @Override
     public List<Category> getCategories() {
-        return template.query("SELECT name, ID FROM categories", (resultSet, i) -> {
+        return template.query("SELECT name, ID FROM categories order by name", (resultSet, i) -> {
             return new Category(resultSet.getInt("ID"), resultSet.getString("name"));
         });
     }

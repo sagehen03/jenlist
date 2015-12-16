@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by dhite on 11/28/15.
  */
-public class UserDaoH2 implements UserDao {
+public class UserDaoSql implements UserDao {
 
     private JdbcTemplate template;
 
-    public UserDaoH2(JdbcTemplate template) {
+    public UserDaoSql(JdbcTemplate template) {
         this.template = template;
     }
 
