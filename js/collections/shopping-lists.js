@@ -4,7 +4,7 @@ var List = require('../models/list');
 module.exports = Backbone.Collection.extend({
 
     model: List,
-    url: ENV + '/shopping-list',
+    url: '/shopping-list',
 
     initialize: function(){
         this.listenTo(Backbone, "newShoppingList", this.addShoppingList);

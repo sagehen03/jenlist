@@ -39,9 +39,7 @@ public class ListController {
     }
 
     @RequestMapping("/")
-    public String home(Model model){
-        model.addAttribute("apiBase", System.getProperty("host") +
-                (!System.getProperty("server.port").equals("80") ? ":" + System.getProperty("server.port") : ""));
+    public String home(){
         return "index";
     }
 

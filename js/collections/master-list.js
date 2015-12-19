@@ -4,7 +4,7 @@
     var BaseList = require('./base-list');
     module.exports = BaseList.extend({
         model: NewMasterListItem,
-        url: ENV + '/master-list',
+        url: '/master-list',
 
         clearSelection: function () {
             this.each(function (model) {

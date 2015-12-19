@@ -4,6 +4,10 @@
     var Category = require('../models/category');
     module.exports = Backbone.Collection.extend({
         model: Category,
-        url: ENV + '/categories'
+        url: '/categories',
+
+        comparator: function(category){
+            return category.get('name');
+        }
     });
 })();

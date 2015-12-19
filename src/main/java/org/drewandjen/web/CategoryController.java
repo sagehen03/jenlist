@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,6 @@ public class CategoryController {
 
     private CategoryDao dao;
 
-    private static final Logger LOG = LoggerFactory.getLogger(CategoryController.class);
-
     public CategoryController(CategoryDao dao) {
         this.dao = dao;
     }
@@ -30,8 +29,16 @@ public class CategoryController {
     @RequestMapping(value= "/categories", method= RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Category> getItems(){
-        LOG.info("Retrieving all categories");
         return dao.getCategories();
     }
+
+    @RequestMapping(value= "/categories", method= RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<String> saveItem(@RequestBody Category category){
+        dao.saveCategory(category);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }

@@ -22,4 +22,9 @@ public class CategoryDaoSql implements CategoryDao {
             return new Category(resultSet.getInt("ID"), resultSet.getString("name"));
         });
     }
+
+    @Override
+    public void saveCategory(Category category) {
+        template.update("insert into categories (name, created_at) values(?, current_time)", category.getName());
+    }
 }

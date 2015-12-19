@@ -23,7 +23,7 @@
         },
 
         updateUrl: function(){
-            this.url = ENV + '/shopping-list-items/' + this.selectedListId;
+            this.url = '/shopping-list-items/' + this.selectedListId;
         }
 
     });
