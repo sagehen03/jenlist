@@ -10,7 +10,19 @@ module.exports = Backbone.View.extend({
     events : {
       'change #shoppingLists' : "masterListChanged",
       'click #show-add-list' : "showAddListModal",
-      'click #add-new-list-btn' : "addNewList"
+      'click #add-new-list-btn' : "addNewList",
+      'keydown #add-list-modal' : "keydown"
+    },
+
+    initialize: function(){
+        _.bindAll(this, "keydown");
+    },
+
+    keydown: function(e){
+        if(e.which == 13){
+            this.addNewList();
+            return false;
+        }
     },
 
     showAddListModal: function(){
@@ -46,7 +58,6 @@ module.exports = Backbone.View.extend({
     },
 
     render: function () {
-        console.log("hello from render");
         var $lists = $('#shoppingLists');
         $lists.html('');
         this.collection.each(function (list){

@@ -38,6 +38,13 @@ public class ListController {
         userInfoCache = cache;
     }
 
+    @RequestMapping("/")
+    public String home(Model model){
+        model.addAttribute("apiBase", System.getProperty("host") +
+                (!System.getProperty("server.port").equals("80") ? ":" + System.getProperty("server.port") : ""));
+        return "index";
+    }
+
     @RequestMapping("/updateItem")
     public ResponseEntity<String> updateItemStatus(@RequestParam int itemId, @RequestParam boolean completed){
         dao.updateShoppingListItemStatus(completed, itemId);

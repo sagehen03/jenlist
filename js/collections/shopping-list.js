@@ -1,7 +1,6 @@
 (function(){
     'use strict';
     var Backbone = require("backbone");
-    var env = require('../env');
     var ListItem = require('../models/shopping-list-item');
     var BaseList = require('./base-list');
     module.exports = BaseList.extend({
@@ -24,7 +23,7 @@
         },
 
         updateUrl: function(){
-            this.url = env.API_BASE + '/shopping-list-items/' + this.selectedListId;
+            this.url = ENV + '/shopping-list-items/' + this.selectedListId;
         }
 
     });

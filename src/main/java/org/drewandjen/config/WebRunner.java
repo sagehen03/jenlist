@@ -27,7 +27,8 @@ public class WebRunner {
 
     @Bean
     public TomcatEmbeddedServletContainerFactory tomcatFactory() {
-        TomcatEmbeddedServletContainerFactory server = new TomcatEmbeddedServletContainerFactory("/jenlist", 8092);
+        TomcatEmbeddedServletContainerFactory server = new TomcatEmbeddedServletContainerFactory("",
+                Integer.parseInt(System.getProperty("server.port")));
         return server;
     }
 
@@ -68,7 +69,7 @@ public class WebRunner {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("jenlist");
         dataSource.setPassword("jenlist");
-        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5433/jenlist");
+        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/jenlist");
         dataSource.setMaximumPoolSize(5);
         dataSource.setConnectionTestQuery("select 1");
         return dataSource;

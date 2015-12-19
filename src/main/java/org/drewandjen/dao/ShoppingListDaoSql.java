@@ -59,7 +59,7 @@ public class ShoppingListDaoSql implements ShoppingListDao{
             item.setComments(null);
         }
         template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
-                        "values (?,?,?,?,?,CURRENT_TIMESTAMP())",
+                        "values (?,?,?,?,?,CURRENT_TIMESTAMP)",
                 item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted(), item.getCategory());
     }
 
@@ -72,19 +72,16 @@ public class ShoppingListDaoSql implements ShoppingListDao{
 
     @Override
     public ShoppingList saveShopingList(String shoppingListName, Integer userId) {
-        PreparedStatementCreator creator = new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement preparedStatement = connection.prepareStatement("insert into shopping_list(name, user_id, created_at) " +
-                        "values(?, ?, CURRENT_TIMESTAMP())");
-                preparedStatement.setString(1, shoppingListName);
-                preparedStatement.setInt(2, userId);
-                return preparedStatement;
-            }
+        PreparedStatementCreator creator = connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into shopping_list(name, user_id, created_at) " +
+                    "values(?, ?, CURRENT_TIMESTAMP)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, shoppingListName);
+            preparedStatement.setInt(2, userId);
+            return preparedStatement;
         };
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         template.update(creator, generatedKeyHolder);
-        return new ShoppingList(generatedKeyHolder.getKey().intValue(), shoppingListName, new Date());
+        return new ShoppingList((Integer) generatedKeyHolder.getKeys().get("id"), shoppingListName, new Date());
     }
 
     @Override
