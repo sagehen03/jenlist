@@ -11,11 +11,9 @@
 
         selected: false,
 
-        closingModal: false,
-
         events: {
           'focus' : '_setfocus',
-          'focusout' : '_losefocus',
+          'blur' : '_losefocus',
           'click th.sort' : 'sortList',
           'blur #add-list-item-modal' : '_setfocus'
         },
@@ -40,9 +38,12 @@
                 $('#add-list-item-modal-title').html(that.getSelectedItem().get('name'));
                 $('#itemComments').focus();
             });
-            $('#add-list-item-modal').on('hide.bs.modal', function(){
-                that.closingModal = true;
+
+            $('#add-list-item-modal').on('hidden.bs.modal', function(){
+                $('#master-list-area').focus();
             });
+
+
             _.bindAll(this, 'keydown');
             $(document).on('keydown', this.keydown);
             _.bindAll(this, 'keyDownInDialog');
@@ -76,21 +77,13 @@
         },
 
         _losefocus: function (e) {
-            if(this.closingModal){
-                this.closingModal = false;
-                e.stopPropagation();
+            var relatedTarget = e.relatedTarget || document.activeElement;
+            if(relatedTarget == $('#add-list-item-modal')[0]
+                || ($(relatedTarget).attr("class") && $(relatedTarget).attr("class").indexOf("modal") > -1)){
                 return;
             }
-            var relatedTarget = e.relatedTarget || document.activeElement;
-            if(relatedTarget && relatedTarget != $('#itemComments')[0] && relatedTarget != $('#add-list-item-modal')[0]){
-                var that = this;
-                setTimeout(function(){
-                    if(document.activeElement != $('#itemComments')[0]){
-                        that.selected = false;
-                        that.collection.clearSelection();
-                    }
-                }, 1);
-            }
+            this.selected = false;
+            this.collection.clearSelection();
         },
 
         _setfocus: function(){
