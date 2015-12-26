@@ -18,6 +18,7 @@
     $(function(){
        $('#shoppingLists').on("change", shoppingListChanged);
        $("input:checkbox").on("click", checkBoxClicked);
+       $('#use-a-list-nav').toggleClass('active');
     });
 
 }());

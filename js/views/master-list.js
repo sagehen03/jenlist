@@ -136,7 +136,8 @@
             }
         },
 
-        render: function(){
+        render: function() {
+            $('#make-a-list-nav').toggleClass('active');
             $('#master-list-body').empty();
             this.collection.each(function (item){
                 var item2 = new Item({model: item, collection: this.collection}).render();

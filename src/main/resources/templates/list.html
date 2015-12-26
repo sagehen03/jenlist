@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Jen List</title>
     <link rel="stylesheet" href="css/bootstrap-theme.css"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
@@ -9,12 +13,17 @@
         .completed {
             text-decoration: line-through;
         }
+
+        body{
+            padding:60px 0px 0px 0px;
+            z-index:0;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/list.js" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 </head>
 <body>
+<div th:include="nav :: nav"></div>
 <div class="container">
     <form id="shoppingListForm">
         <div class="form-group">
