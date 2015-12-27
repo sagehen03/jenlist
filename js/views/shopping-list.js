@@ -15,7 +15,9 @@
 
         initialize: function () {
             this.listenTo(this.collection, 'change:selectedListId', this.render);
-            this.listenTo(this.collection, 'add remove sort', this.render);
+            this.listenTo(this.collection, 'sync', function(){
+                console.log("Hello from <add remove sort> event handler");
+            });
         },
 
         sortList: function(e){

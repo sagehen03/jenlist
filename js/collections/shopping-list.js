@@ -10,7 +10,12 @@
 
         initialize: function(){
             this.listenTo(Backbone, "masterListChanged", this.updateList);
-            this.listenTo(Backbone, "addItemToTarget", this.create);
+            this.listenTo(Backbone, "addItemToTarget", this.addItemToList);
+        },
+
+        addItemToList: function(data){
+            console.log("Creating new list item " + data);
+            this.create(data, {wait: true});
         },
 
         updateList: function(e){
