@@ -9,9 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +35,10 @@ public class ShoppingListDaoSql implements ShoppingListDao{
     }
 
     @Override
-    public void updateShoppingListItemStatus(boolean completed, int itemId){
-        template.update("update shopping_list_item set completed = ? where id = ?", completed, itemId);
+    public void updateShoppingListItemStatus(boolean completed, int itemId, Integer userId){
+        template.update("update shopping_list_item as sli set completed = ? " +
+                "from shopping_list as sl where sli.shopping_list_id = sl.id " +
+                "and sli.id = ? and sl.user_id = ?", completed, itemId, userId);
     }
 
     @Override
@@ -85,8 +85,9 @@ public class ShoppingListDaoSql implements ShoppingListDao{
     }
 
     @Override
-    public void deleteShoppingListItem(int id) {
-        template.update("delete from shopping_list_item where id = ?", id);
+    public void deleteShoppingListItem(int id, Integer userId) {
+        template.update("delete from shopping_list_item using shopping_list where shopping_list_id = shopping_list.id and " +
+                "shopping_list_item.id = ? and shopping_list.user_id = ?", id, userId);
     }
 
     @Override

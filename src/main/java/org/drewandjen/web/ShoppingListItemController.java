@@ -51,9 +51,18 @@ public class ShoppingListItemController {
         }
     }
 
+    @RequestMapping(value="/shopping-list-items/{listId}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateItem(@PathVariable String listId, @RequestBody ShoppingListItem shoppingListItem){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        dao.updateShoppingListItemStatus(shoppingListItem.isCompleted(), shoppingListItem.getId(),
+                userInfoCache.getUserId(authentication.getName()));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/shopping-list-items/{listId}/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<String> deleteItem(@PathVariable Integer listId, @PathVariable Integer id){
-        dao.deleteShoppingListItem(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        dao.deleteShoppingListItem(id, userInfoCache.getUserId(authentication.getName()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

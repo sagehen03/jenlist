@@ -12,7 +12,7 @@ public interface ShoppingListDao {
 
     List<ShoppingList> getShoppingListByOwner(int ownerId);
 
-    void updateShoppingListItemStatus(boolean completed, int itemId);
+    void updateShoppingListItemStatus(boolean completed, int itemId, Integer userId);
 
     List<ShoppingListItem> fetchAll(int listId);
 
@@ -22,7 +22,7 @@ public interface ShoppingListDao {
 
     ShoppingList saveShopingList(String shoppingListName, Integer userId);
 
-    void deleteShoppingListItem(int id);
+    void deleteShoppingListItem(int id, Integer userId);
 
     void updateShoppingListItems(List<ShoppingListItem> itemsToUpdate, Integer userId);
 }

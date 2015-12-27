@@ -28,9 +28,7 @@
             this.listenToOnce(this.collection, 'sync', function(){
                 this.render();
             });
-            this.listenTo(this.collection, 'destroy add sort', function(){
-                this.render();
-            });
+            this.listenTo(this.collection, 'destroy add sort', this.render);
             this.collection.fetch();
             this.itemCommentsInput = $('#itemComments');
             var that = this;

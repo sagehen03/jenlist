@@ -45,7 +45,8 @@ public class ListController {
 
     @RequestMapping("/updateItem")
     public ResponseEntity<String> updateItemStatus(@RequestParam int itemId, @RequestParam boolean completed){
-        dao.updateShoppingListItemStatus(completed, itemId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        dao.updateShoppingListItemStatus(completed, itemId, userInfoCache.getUserId(authentication.getName()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
