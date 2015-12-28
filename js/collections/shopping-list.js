@@ -15,15 +15,15 @@
 
         addItemToList: function(data){
             console.log("Creating new list item " + data);
-            this.create(data, {wait: true, success: function(){
-                console.log("Hello from success");
-            }, error: function(e){
-                console.log("hello from error");
-            }});
+            this.create(data, {wait: true});
         },
 
         updateList: function(e){
             this.selectedListId = e.selectedListId;
+            if(!this.selectedListId){
+                console.log("Selected list id is undefined");
+                return;
+            }
             this.updateUrl();
             var that = this;
             this.fetch({success: function(){

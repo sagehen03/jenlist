@@ -61,11 +61,11 @@ public class ShoppingListDaoSql implements ShoppingListDao{
         PreparedStatementCreator creator = con -> {
             PreparedStatement ps = con.prepareStatement("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
                     "values (?,?,?,?,?,CURRENT_TIMESTAMP)", PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, item.getId());
+            ps.setInt(1, item.getShoppingListId());
             ps.setString(2, item.getName());
             ps.setString(3, item.getComments());
             ps.setBoolean(4, item.isCompleted());
-            ps.setString(5, item.getComments());
+            ps.setString(5, item.getCategory());
             return ps;
 
         };
