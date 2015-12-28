@@ -6,20 +6,18 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by dhite on 12/27/15.
@@ -27,22 +25,19 @@ import static org.junit.Assert.assertNotNull;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SeleniumTest {
 
-    private static ChromeDriver driver;
+    private static FirefoxDriver driver;
 
     private static final Logger LOG = LoggerFactory.getLogger(SeleniumTest.class);
 
     private final String itemName = "Rye Bread";
 
+    private String itemComments = "1 loaf";
+
     @BeforeClass
     public static void openBrowser(){
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("test-type");
-        options.addArguments(Arrays.asList("--start-maximized", "allow-running-insecure-content", "ignore-certificate-errors"));
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        driver = new ChromeDriver(capabilities);
+        driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("http://localhost:8080");
+        driver.get("http://drew:password@localhost:8080");
     }
 
     @Test
@@ -94,11 +89,37 @@ public class SeleniumTest {
                 ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='" + itemName + "']")));
         Actions action = new Actions(driver);
         action.doubleClick(itemInMasterList).perform();
+        while(!driver.findElement(By.id("itemComments")).isDisplayed()){
+            action.doubleClick(itemInMasterList).perform();
+        }
         WebElement itemComments = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("itemComments")));
-        String comment = "1 loaf";
-        itemComments.sendKeys(comment+"\n");
-        WebElement newShoppingListItem = driver.findElement(By.xpath("//label[text()='" + itemName + "  (" + comment + ") ']"));
+        itemComments.sendKeys(this.itemComments +"\n");
+        WebElement newShoppingListItem = driver.findElement(By.xpath("//label[text()='" + itemName + "  (" + this.itemComments + ") ']"));
         assertNotNull(newShoppingListItem);
+    }
+
+    @Test
+    public void deleteMasterListItem() {
+        LOG.info("Deleting master list item");
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        String xPathForDeleteMli = "//tbody[@id='master-list-body']/tr[td[text()='" + itemName + "']]/td/a";
+        for(int i = 0; i<3 && driver.findElements(By.xpath(xPathForDeleteMli)).size() > 0; i++){
+            driver.findElementByXPath(xPathForDeleteMli).click();
+        }
+        List<WebElement> shouldBeMissing = driver.findElements(By.xpath("//tbody[@id='master-list-body']/tr[td[text()='" + itemName + "']]"));
+        assertTrue(shouldBeMissing.size() == 0);
+    }
+
+    @Test
+    public void deleteShoppingListItem(){
+        LOG.info("Deleting shopping list item");
+        String xPathForDeleteMli =  "//tbody[@id='shopping-list-body']/tr[td[label[text() = '" +itemName + "  (" + this.itemComments + ") ']]]/td/a";
+        for(int i=0; i<3 && driver.findElements(By.xpath(xPathForDeleteMli)).size() > 0; i++){
+            driver.findElementByXPath(xPathForDeleteMli).click();
+        }
+        List<WebElement> shouldBeGone = driver.findElements(By.xpath(xPathForDeleteMli));
+        assertTrue(shouldBeGone.size() == 0);
+        driver.kill();
     }
 
 
