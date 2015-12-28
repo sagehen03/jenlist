@@ -56,6 +56,9 @@ public class ListController {
         if (StringUtils.isNotBlank(listId)) {
             items = dao.fetchAll(Integer.parseInt(listId));
         } else {
+            if(shoppingLists.isEmpty()){
+                return "list";
+            }
             int id = shoppingLists.get(0).getId();
             items = dao.fetchAll(id);
             listId = String.valueOf(id);
