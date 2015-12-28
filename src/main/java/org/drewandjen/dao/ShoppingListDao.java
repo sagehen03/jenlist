@@ -16,7 +16,7 @@ public interface ShoppingListDao {
 
     List<ShoppingListItem> fetchAll(int listId);
 
-    void save(ShoppingListItem item);
+    ShoppingListItem save(ShoppingListItem item);
 
     List<ShoppingList> fetchAllShoppingLists(Integer userId);
 

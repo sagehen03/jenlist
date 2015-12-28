@@ -15,7 +15,11 @@
 
         addItemToList: function(data){
             console.log("Creating new list item " + data);
-            this.create(data, {wait: true});
+            this.create(data, {wait: true, success: function(){
+                console.log("Hello from success");
+            }, error: function(e){
+                console.log("hello from error");
+            }});
         },
 
         updateList: function(e){

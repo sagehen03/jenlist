@@ -9,10 +9,6 @@
             category: "",
             dateAdded: "",
             completed: false
-        },
-
-        url : function () {
-            return this.collection.url;
         }
     });
 })();

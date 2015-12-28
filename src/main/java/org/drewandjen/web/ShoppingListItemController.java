@@ -39,20 +39,20 @@ public class ShoppingListItemController {
         return dao.fetchAll(shoppingListId);
     }
 
-    @RequestMapping(value="/shopping-list-items/{listId}", method = RequestMethod.POST)
-    public ResponseEntity<String> saveItem(@PathVariable String listId, @RequestBody ShoppingListItem shoppingListItem){
+    @RequestMapping(value="/shopping-list-items/{listId}", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public ShoppingListItem saveItem(@PathVariable String listId, @RequestBody ShoppingListItem shoppingListItem){
         if(StringUtils.isNumeric(listId)){
             LOG.info("Saving shopping list item {}", shoppingListItem);
             shoppingListItem.setShoppingListId(Integer.parseInt(listId));
-            dao.save(shoppingListItem);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return dao.save(shoppingListItem);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new IllegalArgumentException("Bad request");
         }
     }
 
-    @RequestMapping(value="/shopping-list-items/{listId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateItem(@PathVariable String listId, @RequestBody ShoppingListItem shoppingListItem){
+    @RequestMapping(value="/shopping-list-items/{listId}/{itemId}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateItem(@PathVariable String listId, @PathVariable String itemId, @RequestBody ShoppingListItem shoppingListItem){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         dao.updateShoppingListItemStatus(shoppingListItem.isCompleted(), shoppingListItem.getId(),
                 userInfoCache.getUserId(authentication.getName()));
