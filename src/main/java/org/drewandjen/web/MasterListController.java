@@ -6,7 +6,6 @@ import org.drewandjen.model.UserInfoCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,11 +39,10 @@ public class MasterListController {
     }
 
     @RequestMapping(value = "/master-list", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<String> saveItem(@RequestBody MasterListItem newItem){
+    @ResponseBody
+    public MasterListItem saveItem(@RequestBody MasterListItem newItem){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        dao.save(newItem, userInfoCache.getUserId(userName));
-        LOG.info("Saving item {}", newItem);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return dao.save(newItem, userInfoCache.getUserId(userName));
     }
 
     @RequestMapping(value = "/master-list/{id}", method = RequestMethod.DELETE, produces = "application/json")

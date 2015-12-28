@@ -4,7 +4,7 @@
     var _ = require('underscore');
     var template = _.template(
         '<td><input type="checkbox" id="<%=id%>" <% if (completed) {%> checked="checked" <%} %> > &nbsp;' +
-        '<label <% if (completed) {%> class="completed" <%} %> for="<%=id%>"> <%= name%> <% if (comments) {%> (<%= comments%>) <%} %></label></td>' +
+        '<label <% if (completed) {%> class="completed" <%} %> for="<%=id%>"><%= name%> <% if (comments) {%> (<%= comments%>) <%} %></label></td>' +
         '<td><%= category%></td><td><a href="#" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>'
     );
     module.exports = Backbone.View.extend({
@@ -33,7 +33,6 @@
         },
 
         render: function(){
-            console.log("Rendering");
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         }

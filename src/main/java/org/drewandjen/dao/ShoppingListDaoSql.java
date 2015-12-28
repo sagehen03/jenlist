@@ -53,14 +53,27 @@ public class ShoppingListDaoSql implements ShoppingListDao{
     }
 
     @Override
-    public void save(ShoppingListItem item) {
+    public ShoppingListItem save(ShoppingListItem item) {
         LOG.info("Saving item {}", item);
         if(StringUtils.isBlank(item.getComments())){
             item.setComments(null);
         }
-        template.update("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
-                        "values (?,?,?,?,?,CURRENT_TIMESTAMP)",
-                item.getShoppingListId(), item.getName(), item.getComments(), item.isCompleted(), item.getCategory());
+        PreparedStatementCreator creator = con -> {
+            PreparedStatement ps = con.prepareStatement("insert into shopping_list_item(shopping_list_id, name, comment, completed, category, created_at) " +
+                    "values (?,?,?,?,?,CURRENT_TIMESTAMP)", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, item.getShoppingListId());
+            ps.setString(2, item.getName());
+            ps.setString(3, item.getComments());
+            ps.setBoolean(4, item.isCompleted());
+            ps.setString(5, item.getCategory());
+            return ps;
+
+        };
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        template.update(creator, generatedKeyHolder);
+        Integer id = (Integer) generatedKeyHolder.getKeys().get("id");
+        item.setId(id);
+        return item;
     }
 
     @Override

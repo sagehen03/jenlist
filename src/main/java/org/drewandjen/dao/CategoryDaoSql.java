@@ -2,7 +2,11 @@ package org.drewandjen.dao;
 
 import org.drewandjen.model.Category;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 /**
@@ -24,7 +28,14 @@ public class CategoryDaoSql implements CategoryDao {
     }
 
     @Override
-    public void saveCategory(Category category) {
-        template.update("insert into categories (name, created_at) values(?, current_time)", category.getName());
+    public Category saveCategory(Category category) {
+        PreparedStatementCreator pc = con -> {
+            PreparedStatement ps = con.prepareStatement("insert into categories (name, created_at) values(?, current_timestamp)", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, category.getName());
+            return ps;
+        };
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(pc, keyHolder);
+        return new Category((Integer)keyHolder.getKeys().get("id"), category.getName());
     }
 }

@@ -5,8 +5,6 @@ import org.drewandjen.dao.ShoppingListDao;
 import org.drewandjen.model.ShoppingList;
 import org.drewandjen.model.ShoppingListItem;
 import org.drewandjen.model.UserInfoCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by dhite on 12/7/15.
  */
 @Controller
 public class ListController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ListController.class);
 
     private ShoppingListDao dao;
 
