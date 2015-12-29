@@ -2,6 +2,7 @@
     'use strict';
     var Backbone = require("backbone");
     var _ = require('underscore');
+    var $ = require('jquery');
     var template = _.template(
         '<td><input type="checkbox" id="<%=id%>" <% if (completed) {%> checked="checked" <%} %> > &nbsp;' +
         '<label <% if (completed) {%> class="completed" <%} %> for="<%=id%>"><%= name%> <% if (comments) {%> (<%= comments%>) <%} %></label></td>' +
@@ -19,17 +20,27 @@
 
         initialize: function(){
             _.bindAll(this, 'toggleCompleted');
-            this.listenTo(this.model, 'change:completed', this.render);
+            this.listenTo(this.model, 'change:selected', this.toggleControls);
         },
 
         removeItem: function(){
             this.model.destroy();
         },
 
+        toggleControls: function(){
+            var coll = this.model.collection;
+            var anySelected = coll.where({selected: true}).length > 0;
+            console.log("Any selected " + anySelected);
+            if(anySelected){
+                $('#shopping-list-controls').slideDown();
+            } else {
+                $('#shopping-list-controls').slideUp();
+            }
+        },
+
         toggleCompleted: function(){
-          var completed = this.model.get('completed');
-          this.model.set('completed', !completed);
-          this.model.save();
+          var selected = this.model.get('selected');
+          this.model.set('selected', !selected);
         },
 
         render: function(){

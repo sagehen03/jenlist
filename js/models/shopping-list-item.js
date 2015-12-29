@@ -8,6 +8,7 @@
             shoppingListId: 0,
             category: "",
             dateAdded: "",
+            selected: false,
             completed: false
         }
     });

@@ -14,7 +14,6 @@
         },
 
         initialize: function () {
-            this.listenTo(this.collection, 'change:selectedListId', this.render);
             this.listenTo(this.collection, 'add remove sort', this.render);
         },
 

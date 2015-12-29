@@ -45,7 +45,7 @@ public class MasterListController {
         return dao.save(newItem, userInfoCache.getUserId(userName));
     }
 
-    @RequestMapping(value = "/master-list/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value = "/master-list/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteItem(@PathVariable Integer id){
         LOG.info("About to delete item {}", id);
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
