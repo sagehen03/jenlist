@@ -182,9 +182,10 @@
             </form>
 
             <div id="shopping-list-area" tabindex="3">
-                <div id="shopping-list-controls" style="display:none">
-                    <a href="#" id="change-selected-items-status" title="Add New Item"><span class="glyphicon glyphicon-plus"></span></a>
-                    <a href="#" id="remove-selected-items" title="Filter List"><span class="glyphicon glyphicon-filter"></span></a>
+                <div id="shopping-list-controls">
+                    <a href="#" id="change-selected-items-status" title="toggle completed status for selected items"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a href="#" id="remove-selected-items" title="delete selected items"><span class="glyphicon glyphicon-trash"></span></a>
+                    &nbsp;|&nbsp;<a href="#" id="delete-all-items">Delete All Items</a>
                 </div>
                 <table class="table table-striped table-hover">
                     <thead>
