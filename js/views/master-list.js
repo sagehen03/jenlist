@@ -4,12 +4,15 @@
     var Item = require('./master-list-item');
     var $ = require('jquery');
     var _ = require('underscore');
+    var MasterListCollection = require('../collections/master-list');
 
     module.exports = Backbone.View.extend({
 
         el: $('#master-list-area'),
 
         selected: false,
+
+        filtered: {},
 
         events: {
           'focus' : '_setfocus',
@@ -29,7 +32,9 @@
                 this.render();
             });
             this.listenTo(this.collection, 'destroy add sort', this.render);
+            this.listenTo(Backbone, "filterEvent", this.renderFiltering);
             this.collection.fetch();
+            this.filtered = this.collection;
             this.itemCommentsInput = $('#itemComments');
             var that = this;
             $('#add-list-item-modal').on('shown.bs.modal', function () {
@@ -46,6 +51,14 @@
             $(document).on('keydown', this.keydown);
             _.bindAll(this, 'keyDownInDialog');
             this.itemCommentsInput.on('keydown', this.keyDownInDialog);
+        },
+
+        renderFiltering: function(e){
+            var startsWith = this.collection.filter(function(model) {
+                return model.get('name').toLowerCase().startsWith(e.startsWith);
+            });
+            this.filtered = new MasterListCollection(startsWith);
+            this.render();
         },
 
         keyDownInDialog: function(e){
@@ -137,7 +150,7 @@
         render: function() {
             $('#make-a-list-nav').toggleClass('active');
             $('#master-list-body').empty();
-            this.collection.each(function (item){
+            this.filtered.each(function (item){
                 var item2 = new Item({model: item, collection: this.collection}).render();
                 this.$('#master-list-body').append(item2.el);
             }, this);

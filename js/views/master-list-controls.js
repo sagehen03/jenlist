@@ -24,6 +24,7 @@
                 $('#add-item-area').slideUp();
             }
             $('#filter-master-list-area').slideToggle();
+            $('#filter-text').focus();
         }
     });
 })();
