@@ -107,7 +107,7 @@
                 return;
             }
 
-            var collection = this.collection;
+            var collection = this.filtered;
 
             if( e.which == 40 ) {
                 collection.selectedItem++;
