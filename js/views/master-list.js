@@ -14,6 +14,8 @@
 
         filtered: {},
 
+        filter: '',
+
         events: {
           'focus' : '_setfocus',
           'blur' : '_losefocus',
@@ -23,15 +25,37 @@
 
         sortList: function(e){
             var sortBy = $(e.target).text().toLowerCase();
-            this.collection.sortItems(sortBy);
+            this.filtered.sortItems(sortBy);
+        },
+
+        applyFilter: function(){
+            var startsWith = this.filter;
+            if(startsWith){
+                this.filtered.reset(this.collection.filter(function(model) {
+                    return model.get('name').toLowerCase().startsWith(startsWith);
+                }));
+            } else {
+                this.filtered.reset(this.collection.filter(function() {
+                    return true;
+                }));
+            }
+        },
+
+        handleAddOrDelete: function(){
+            this.applyFilter();
+            this.render();
         },
 
         initialize: function(){
             this.selected = false;
             this.listenToOnce(this.collection, 'sync', function(){
                 this.render();
+                this.filtered = new MasterListCollection(this.collection.filter(function() {
+                    return true;
+                }));
             });
-            this.listenTo(this.collection, 'destroy add sort', this.render);
+            this.listenTo(this.filtered, 'sort', this.render);
+            this.listenTo(this.collection, 'add destroy', this.handleAddOrDelete);
             this.listenTo(Backbone, "filterEvent", this.renderFiltering);
             this.collection.fetch();
             this.filtered = this.collection;
@@ -54,10 +78,8 @@
         },
 
         renderFiltering: function(e){
-            var startsWith = this.collection.filter(function(model) {
-                return model.get('name').toLowerCase().startsWith(e.startsWith);
-            });
-            this.filtered = new MasterListCollection(startsWith);
+            this.filter = e.startsWith;
+            this.applyFilter();
             this.render();
         },
 
