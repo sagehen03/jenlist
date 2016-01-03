@@ -26,6 +26,7 @@
         sortList: function(e){
             var sortBy = $(e.target).text().toLowerCase();
             this.filtered.sortItems(sortBy);
+            this.render();
         },
 
         applyFilter: function(){
@@ -54,10 +55,9 @@
                 this.filtered = this.resetFiltered();
                 this.render();
             });
-            this.listenTo(this.filtered, 'sort', this.render);
             this.listenTo(this.collection, 'add destroy', this.handleAddOrDelete);
             this.listenTo(Backbone, "filterEvent", this.renderFiltering);
-            this.collection.fetch();
+            this.collection.fetch({silent: true});
             this.itemCommentsInput = $('#itemComments');
             var that = this;
             $('#add-list-item-modal').on('shown.bs.modal', function () {
