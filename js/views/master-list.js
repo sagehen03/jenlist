@@ -35,10 +35,12 @@
                     return model.get('name').toLowerCase().startsWith(startsWith);
                 }));
             } else {
-                this.filtered.reset(this.collection.filter(function() {
-                    return true;
-                }));
+                this.filtered = this.resetFiltered();
             }
+        },
+
+        resetFiltered: function(){
+            return new MasterListCollection(this.collection.filter(function(){ return true; }));
         },
 
         handleAddOrDelete: function(){
@@ -49,16 +51,13 @@
         initialize: function(){
             this.selected = false;
             this.listenToOnce(this.collection, 'sync', function(){
+                this.filtered = this.resetFiltered();
                 this.render();
-                this.filtered = new MasterListCollection(this.collection.filter(function() {
-                    return true;
-                }));
             });
             this.listenTo(this.filtered, 'sort', this.render);
             this.listenTo(this.collection, 'add destroy', this.handleAddOrDelete);
             this.listenTo(Backbone, "filterEvent", this.renderFiltering);
             this.collection.fetch();
-            this.filtered = this.collection;
             this.itemCommentsInput = $('#itemComments');
             var that = this;
             $('#add-list-item-modal').on('shown.bs.modal', function () {
@@ -100,7 +99,7 @@
         },
 
         getSelectedItem: function(){
-            return this.collection.find(function (i) {
+            return this.filtered.find(function (i) {
                 return i.get('selected');
             });
         },
@@ -116,7 +115,7 @@
                 return;
             }
             this.selected = false;
-            this.collection.clearSelection();
+            this.filtered.clearSelection();
         },
 
         _setfocus: function(){
