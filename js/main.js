@@ -14,6 +14,7 @@ var AddItemView = require('../js/views/add-item');
 var MasterListControls = require('../js/views/master-list-controls');
 var FilterView = require('../js/views/filter-master-list');
 var Categories = require('../js/collections/categories');
+var Router = require('../js/router/router.js');
 
 $( function (){
     if (!String.prototype.startsWith) {
@@ -22,14 +23,16 @@ $( function (){
             return this.indexOf(searchString, position) === position;
         };
     }
+    var router = new Router();
     var listCollection = new ListCollection();
     new ShoppingListView({collection: new ShoppingListCollection()});
     var tView = new ShoppingListSelectorView({collection: listCollection});
     var masterList = new MasterList();
     var view = new MlView({collection: masterList});
-    new MasterListControls();
+    new MasterListControls({attributes: {router: router}});
     new FilterView();
     var aiView = new AddItemView({collection: new Categories(), attributes: {masterListColl: masterList}});
+    Backbone.history.start();
 });
 
 

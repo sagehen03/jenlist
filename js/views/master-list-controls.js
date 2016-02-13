@@ -13,18 +13,21 @@
         },
 
         showAddNewMasterListItem: function(){
-            if( $('#filter-master-list-area').is(":visible") ) {
-                $('#filter-master-list-area').slideUp();
+            if( $('#add-item-area').is(":visible") ) {
+                $('#add-item-area').slideUp();
+                this.attributes.router.navigate('/');
+            } else {
+                this.attributes.router.navigate("addItemMl", {trigger: true});
             }
-            $('#add-item-area').slideToggle();
         },
 
         showFilterMasterList: function() {
-            if( $('#add-item-area').is(":visible") ){
-                $('#add-item-area').slideUp();
+            if( $('#filter-master-list-area').is(":visible") ){
+                $('#filter-master-list-area').slideUp();
+                this.attributes.router.navigate('/');
+            } else {
+                this.attributes.router.navigate("filterMl", {trigger: true});
             }
-            $('#filter-master-list-area').slideToggle();
-            $('#filter-text').focus();
         }
     });
 })();
