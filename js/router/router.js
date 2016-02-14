@@ -12,6 +12,8 @@
 
         addItemMl: function() {
             if( $('#filter-master-list-area').is(":visible") ) {
+                $('#filter-text').val('');
+                Backbone.trigger('filterEvent', {'startsWith': ''});
                 $('#filter-master-list-area').slideUp();
             }
             $('#add-item-area').slideToggle();

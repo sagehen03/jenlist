@@ -96,6 +96,10 @@
                 "comments": this.itemCommentsInput.val()});
             this.itemCommentsInput.val('');
             $('#add-list-item-modal').modal('hide');
+            if( $('#filter-master-list-area').is(":visible") ) {
+                $('#filter-text').val('');
+                Backbone.trigger('filterEvent', {'startsWith': ''});
+            }
         },
 
         getSelectedItem: function(){
