@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jen List</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h3>Jen's List</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form id="the-form" class="login-form" role="form" method="post" action="/login">
+                <div class="form-group">
+                    <label for="username" class="sr-only">User:</label>
+                    <input type="text" name="username" id="username" class="form-username form-control"
+                           placeholder="User.."/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Password:</label>
+                    <input type="password" name="password" id="password" class="form-password form-control"
+                           placeholder="Password.."/>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <input id="remember_me" name="remember-me" type="hidden" value="true"/>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('#username').focus();
+    });
+</script>
+</body>
+</html>

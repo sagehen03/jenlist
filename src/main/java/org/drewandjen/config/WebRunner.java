@@ -6,6 +6,8 @@ import org.drewandjen.model.UserInfoCache;
 import org.drewandjen.web.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,8 @@ import javax.sql.DataSource;
  * Created by dhite on 8/24/15.
  */
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
+@SpringBootApplication
 @Import(SecurityConfig.class)
 public class WebRunner {
 
@@ -54,6 +57,11 @@ public class WebRunner {
         registration.setLoadOnStartup(1);
         registration.setName("dispatch");
         return registration;
+    }
+
+    @Bean
+    public LoginController loginController(){
+        return new LoginController();
     }
 
     @Bean
