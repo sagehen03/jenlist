@@ -173,7 +173,7 @@
         },
 
         render: function() {
-            $('#make-a-list-nav').toggleClass('active');
+            $('#make-a-list-nav').addClass('active');
             $('#master-list-body').empty();
             this.filtered.each(function (item){
                 var item2 = new Item({model: item, collection: this.collection}).render();
