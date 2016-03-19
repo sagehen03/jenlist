@@ -36,8 +36,11 @@ public class SeleniumTest {
     @BeforeClass
     public static void openBrowser(){
         driver = new FirefoxDriver();
+        driver.get("http://localhost:8080");
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("http://drew:password@localhost:8080");
+        driver.findElement(By.id("username")).sendKeys("drew");
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.id("login-btn")).click();
     }
 
     @Test
