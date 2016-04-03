@@ -38,9 +38,9 @@ insert into master_list(name, category, created_at, user_id) values('Black berri
 insert into master_list(name, category, created_at, user_id) values('Bananas', 'Produce', CURRENT_TIMESTAMP, 1);
 insert into master_list(name, category, created_at, user_id) values('Broccoli', 'Produce', CURRENT_TIMESTAMP, 1);
 insert into master_list(name, category, created_at, user_id) values('Spinach', 'Produce', CURRENT_TIMESTAMP, 1);
-insert into master_list(name, category, created_at, user_id) values('Celery', 'Produce', CURRENT_TIMESTAMP, 2);
-insert into master_list(name, category, created_at, user_id) values('Napa Cabbage', 'Produce', CURRENT_TIMESTAMP, 2);
-insert into master_list(name, category, created_at, user_id) values('Escarole', 'Produce', CURRENT_TIMESTAMP, 2);
+-- insert into master_list(name, category, created_at, user_id) values('Celery', 'Produce', CURRENT_TIMESTAMP, 2);
+-- insert into master_list(name, category, created_at, user_id) values('Napa Cabbage', 'Produce', CURRENT_TIMESTAMP, 2);
+-- insert into master_list(name, category, created_at, user_id) values('Escarole', 'Produce', CURRENT_TIMESTAMP, 2);
 
 insert into shopping_list(name, created_at, user_id) values('Whole Foods List', CURRENT_TIMESTAMP, 1);
 insert into shopping_list(name, created_at, user_id) values('Trader Joe''s List', CURRENT_TIMESTAMP, 1);

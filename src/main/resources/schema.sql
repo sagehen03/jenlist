@@ -25,7 +25,8 @@ create table authorities (
   authority varchar(50) not null);
 
 
-INSERT INTO users(username,password,enabled)
-VALUES ('drew','$2a$10$tEelzEleqaGTC31hNZFKbeJu/SJIqBLzoO0NyWhmVce7lqLrNFQTe', true);
+INSERT INTO users(username,password,enabled) VALUES ('drew','$2a$10$tEelzEleqaGTC31hNZFKbeJu/SJIqBLzoO0NyWhmVce7lqLrNFQTe', true);
+INSERT INTO users(username,password,enabled) VALUES ('maya','$2a$10$luBy5.QnYC3HQrFQP70Y7eqZ9yM0dJ03WsA7ERdbQ.FE5Zu5NSrSy', true);
 
 INSERT INTO authorities (username, authority) VALUES ('drew', 'ROLE_USER');
+INSERT INTO authorities (username, authority) VALUES ('maya', 'ROLE_USER');
