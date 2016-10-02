@@ -33,7 +33,10 @@
             var startsWith = this.filter;
             if(startsWith){
                 this.filtered.reset(this.collection.filter(function(model) {
-                    return model.get('name').toLowerCase().startsWith(startsWith);
+                    var words = model.get('name').split(" ");
+                    return _.filter(words, function(word){
+                        return word.toLowerCase().startsWith(startsWith);
+                    }).length;
                 }));
             } else {
                 this.filtered = this.resetFiltered();
